@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '-^m%02(chye9mfq#b&+_dtzs9)4*_!$dp^iurz7#b6b=orc&)x'
+SECRET_KEY = 'Lets Nduthis'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'gym',
 ]
 
 MIDDLEWARE = [
@@ -75,8 +76,10 @@ WSGI_APPLICATION = 'smart_gym.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'smartgym',
+        'USER': 'kwesi',
+    'PASSWORD': 'Makonnen14',
     }
 }
 
@@ -98,6 +101,9 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# This is for the ABSTRACTUSER model we have used
+AUTH_USER_MODEL = 'core.User'
 
 
 # Internationalization
