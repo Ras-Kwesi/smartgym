@@ -22,22 +22,23 @@ def index(request):
 
     return render(request,'index.html',{})
 
+
 # @login_required(login_url='/accounts/login/')
-def chatroom(request,room_id):
+def chatroom(request,room_id):              # This vew function is to log into a chatroom the user belongs to
     current_user = request.user
     form = ChatPostForm()
 
     chatroom = get_object_or_404(Chatroom,pk=room_id)
-    chatrooms = request.user.profile.chatroom.all()
+    chatrooms = request.user.chatroom.all()
     print(chatroom)
-    posts = Post.objects.filter(chatroom=chatroom)
+    # posts = Post.objects.filter(chatroom=chatroom)
     if chatroom in chatrooms:
         chatroom = chatroom
         return render(request, 'chatroom/chatroom.html', {'chatroom': chatroom,'form':form})
 
 
-def post(request, id):
-    chatroom = Chatroom.objects.get(id=id)
+def post(request, id):                       # This view function is to make a post in a chatroom,its the formaction
+    chatroom = Chatroom.objects.get(id=id)   # to the post form in chatroom
     print(id)
     # new_post = Post()
     if request.method == 'POST':
@@ -52,18 +53,18 @@ def post(request, id):
         return redirect('index')
 
 
-def chatrooms(request):
+def chatrooms(request):                        # This is the view function to render all available chatrooms in the app
     current_user = request.user
     chatrooms = Chatroom.objects.all()
 
     return render(request,'chatroom/chatrooms.html',{'chatrooms':chatrooms})
 
 
-def exitchatroom(request,id):
+def exitchatroom(request,id):                  # This is the view function to exit a chatroom
     current_user = request.user
-    # hood_name = current_user.profile.hood
-    # hood = Hood.objects.get(id=id)
-    current_user.profile.chatroom = None
+    # current_user.profile.chatroom = None       # It replaces the id for a chatroom with an empty entry in column
+    chat = Chatroom.objects.get(id=id)
+    current_user.removechatroom(chat, current_user)
     current_user.profile.save()
 
     return redirect('index')
@@ -92,18 +93,18 @@ def newchatroom(request):
 
 
 
-def profilechatrooms(request):
-    current_user = request.user
-    chatrooms = current_user.profile.chatroom.all()
-
-    return redirect('index')
+# def profilechatrooms(request):
+#     current_user = request.user
+#     chatrooms = current_user.chatroom.all()
+#
+#     return redirect('index')
 
 
 
 def joinchat(request,id):
     current_user = request.user
     chat = Chatroom.objects.get(id=id)
-    current_user.profile.addchatroom(current_user,chat)
-    current_user.profile.save()
+    current_user.addchatroom(chat, current_user)
+    current_user.save()
 
     return redirect('index')

@@ -58,6 +58,21 @@ class Chatroom(models.Model):
     name = models.CharField(max_length=20,unique=True)
     info = models.TextField(max_length=100)
     admin = models.ForeignKey(User,related_name='administrate')
+    users = models.ManyToManyField(User,related_name='chatroom')
+
+    @classmethod
+    def addchatroom(cls, chatroom, newuser):
+        room, created = cls.objects.get_or_create(
+            chatroom=chatroom
+        )
+        room.users.add(newuser)
+
+    @classmethod
+    def removechatroom(cls, chatroom, newuser):
+        room, created = cls.objects.get_or_create(
+            chatroom=chatroom
+        )
+        room.users.remove(newuser)
 
     def save_chatroom(self):
         self.save()
