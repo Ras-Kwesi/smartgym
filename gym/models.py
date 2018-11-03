@@ -32,7 +32,7 @@ class Gymnast(models.Model):
     contact = models.CharField(max_length=30, blank=True)
     bio = models.TextField(max_length=50)
     chatroom = models.ManyToManyField('Chatroom')
-    gym = models.ForeignKey('Gym', on_delete=models.CASCADE, null=True)
+    gym = models.ForeignKey('Gym', null=True)
 
 
 # This is the class for the Trainer and has the unique features of the Trainers
@@ -75,8 +75,8 @@ class Chatroom(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=30)
     post = models.TextField(max_length=100)
-    chatroom = models.ForeignKey(Chatroom,related_name='posts',null=True)
-    poster = models.ForeignKey(User,on_delete=models.CASCADE,related_name='post')
+    chatroom = models.ForeignKey(Chatroom,related_name='posts', null=True)
+    poster = models.ForeignKey(User, related_name='post')
 
 
     def save_post(self):
