@@ -22,7 +22,7 @@ def index(request):
 
     return render(request,'index.html',{})
 
-@login_required(login_url='/accounts/login/')
+# @login_required(login_url='/accounts/login/')
 def chatroom(request,room_id):
     current_user = request.user
     form = ChatPostForm()
@@ -69,7 +69,7 @@ def exitchatroom(request,id):
     return redirect('index')
 
 
-@login_required(login_url='/accounts/login/')
+# @login_required(login_url='/accounts/login/')
 def newchatroom(request):
     current_user = request.user
     if request.method == 'POST':
