@@ -6,7 +6,7 @@ from django.conf.urls.static import static
 
 urlpatterns=[
     url('^$',views.index,name='index'),
-    url('^$'),
+    # url('^$'),
     url('^chatroom/(\w+)$', views.chatroom, name='chatroom'),
     url('^post/(\w+)$', views.post, name='post'),
     url('^newchatroom/$', views.newchatroom, name='newchatroom'),

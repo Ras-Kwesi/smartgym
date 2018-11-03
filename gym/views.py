@@ -17,7 +17,10 @@ from .models import *
 # Create your views here.
 
 
+# @login_required(login_url='/accounts/login/')
+def index(request):
 
+    return render(request,'index.html',{})
 
 @login_required(login_url='/accounts/login/')
 def chatroom(request,room_id):
