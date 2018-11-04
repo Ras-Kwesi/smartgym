@@ -12,7 +12,7 @@ class User(AbstractUser):
         (3, 'gym_manager'),
     )
     profile_pic = models.ImageField(upload_to='images/', blank=True)
-    user_type = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES)
+    user_type = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES,null=True,blank=True)
     # location =
     contact = models.CharField(max_length=30, blank=True)
 
