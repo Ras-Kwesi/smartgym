@@ -130,6 +130,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+GOOGLE_RECAPTCHA_SECRET_KEY = '6LcIlHgUAAAAADha40zt7GOGXUrcJ1FTyv6PYj_a'
 # This is for the ABSTRACTUSER model we have used
 AUTH_USER_MODEL = 'gym.User'
 
@@ -139,7 +140,7 @@ AUTH_USER_MODEL = 'gym.User'
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Africa/Nairobi'
 
 USE_I18N = True
 

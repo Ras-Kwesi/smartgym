@@ -1,0 +1,51 @@
+{% extends 'base.html'%}
+{% load bootstrap3 %}
+{% load bootstrap4 %}
+{% load static %}
+
+{% block styles %}
+{{block.super}}
+
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+
+{% endblock %}
+{% block content %}
+<body>
+  <center>
+    <h1 style="font-size:50px;">Login As:</h1>
+    <br>
+    <section>
+      <a href="/manager_login/"> <button type="button" class="btn-md btn btn-success">Gym Manager</button></a>&nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="/trainer_login/"> <button type="button" class="btn-md btn btn-success">Gym Instructor</button></a>&nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="/client_login/"> <button type="button" class="btn-md btn btn-success">Client</button></a>&nbsp;&nbsp;&nbsp;&nbsp;
+    </section>
+  </center>
+
+</body>
+
+
+
+{% endblock %}
+{% block scripts %} {{block.super}}
+<style>
+  body{
+    background: url(/static/photos/pic3.jpeg) !important;
+    background-position: center !important;
+    background-size: cover !important;
+    background-attachment: fixed !important;
+    background-repeat: no-repeat !important;
+    overflow: hidden !important;
+    
+    
+  }
+  center{
+    color: whitesmoke !important;
+    padding-top:23% !important;
+  }
+</style>
+{% endblock %}
