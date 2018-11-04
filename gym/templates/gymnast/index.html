@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static%}
+
+{% block styles%}
+{{block.super}}
+<link href="https://fonts.googleapis.com/css?family=Fredoka+One|Patua+One|Philosopher" rel="stylesheet"> 
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock %}
+
+{% block content %}
+{{block.super}}
+<h1>Hey</h1>
+{% endblock%}

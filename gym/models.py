@@ -5,15 +5,18 @@ from django.contrib.auth.models import AbstractUser
 # User = get_user_model()
 
 
+
+
+
 # Create your models here.
 
 # Used the Abstract user and not extend user so as to add common factors of all app user is the USER model
 # Profiles for unique feature of users are going to be extended to other profile classes ud=sing one to One R/ship
 class User(AbstractUser):
     USER_TYPE_CHOICES = (
-        (1, 'gymnast'),
-        (2, 'trainer'),
-        (3, 'gym_manager'),
+        (1, 'Client'),
+        (2, 'Trainer'),
+        (3, 'Gym manager'),
     )
 
     profile_pic = models.ImageField(upload_to='images/', blank=True)
@@ -68,14 +71,14 @@ class Chatroom(models.Model):
     @classmethod
     def addchatroom(cls, chatroom, newuser):
         room, created = cls.objects.get_or_create(
-            chatroom=chatroom
+            # chatroom=chatroom
         )
         room.users.add(newuser)
 
     @classmethod
     def removechatroom(cls, chatroom, newuser):
         room, created = cls.objects.get_or_create(
-            chatroom=chatroom
+            # chatroom=chatroom
         )
         room.users.remove(newuser)
 
@@ -122,7 +125,7 @@ class Gym(models.Model):
   image = models.ImageField(upload_to='images/')
   location = models.CharField(max_length=100)
   working_hours = models.TextField()
-  manager = models.ForeignKey('GymManager',default = 0)
+  manager = models.ForeignKey(GymManager)
 
 
 # This is the event class and is related to user as a foreign key, any user can create an event
@@ -131,3 +134,14 @@ class Event(models.Model):
   description = models.TextField(max_length=100)
   event_date = models.DateTimeField()
   admin = models.ForeignKey(User)
+
+
+class Join(models.Model):
+    """
+    Class that monitors which users have joined which gyms
+    """
+    user = models.OneToOneField(User)
+    gym = models.ForeignKey(Gym)
+
+    def __str__(self):
+        return self.user

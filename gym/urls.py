@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 
 
 urlpatterns=[
-    url('^$',views.index,name='index'),
+    url('^$',views.index,name='landing'),
     # url('^$'),
     url('^chatroom/(\w+)$', views.chatroom, name='chatroom'),
     url('^post/(\w+)$', views.post, name='post'),
@@ -18,6 +18,10 @@ urlpatterns=[
     url(r'^client_signup/$',views.client_signup,name='client_signup'),
     url(r'^manager_signup/$',views.manager_signup,name='manager_signup'),
     url(r'^home/$',views.homepage,name = 'home'),
+    url(r'^signup/$', views.signup, name='signup'),
+    url(r'^addgym/$', views.addgym, name='addgym'),
+    url('^joinchat/(\d+)', views.joinchat, name='joinchat'),
+    url('^exitchat/(\d+)', views.exitchatroom, name='exitchat'),
 
     
 ]

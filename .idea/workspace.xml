@@ -401,7 +401,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/smart_gym/settings.py">
+    <entry file="file://$PROJECT_DIR$/gym/views.py">
       <provider selected="true" editor-type-id="text-editor">
 
         <state relative-caret-position="1845">

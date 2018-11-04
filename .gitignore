@@ -103,3 +103,5 @@ virtual/
 
 # mypy
 .mypy_cache/
+.vscode/
+.idea/
