@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+
+
+
 # Create your models here.
 
 # Used the Abstract user and not extend user so as to add common factors of all app user is the USER model

@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
 from .models import User, Gymnast, Trainer, GymManager, Chatroom, Post, Gym, Event, Join
 from django.shortcuts import render,redirect,get_object_or_404
-from django.contrib.auth.models import User
-from django.http  import HttpResponse,Http404,HttpResponseRedirect
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
+from django.contrib.auth import get_user_model
+from django.http  import HttpResponse, Http404, HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.conf import settings
 import urllib
@@ -14,11 +14,7 @@ from .forms import SignupForm
 from .decorators import check_recaptcha
 
 
-
-# Create your views here.
-def homepage(request):
-    return render(request,'home.html', locals())
-
+User = get_user_model()
 
 def signup(request):
 
@@ -59,15 +55,14 @@ def signup(request):
         if form.is_valid() and request.recaptcha_is_valid:
             form.save()
             messages.success(request, 'Account created successfully!')
-            return redirect('home')
+            return redirect('landing')
     else:
         form = SignupForm()
 
     return render(request, 'registration/registration_form.html', {'form': form})
 
 
-
-
+@login_required(login_url='/accounts/login/')
 def index(request):
     """
     Renders the index page
