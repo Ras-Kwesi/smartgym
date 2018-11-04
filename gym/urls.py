@@ -11,6 +11,7 @@ urlpatterns=[
     url('^post/(\w+)$', views.post, name='post'),
     url('^newchatroom/$', views.newchatroom, name='newchatroom'),
     url('^chatrooms/$', views.chatrooms, name='chatrooms'),
+    url('^$',views.homepage,name = 'home'),
 ]
 
 if settings.DEBUG:
