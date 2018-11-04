@@ -15,16 +15,6 @@ Including another URLconf
 """
 from django.conf.urls import url,include
 from django.contrib import admin
-<<<<<<< HEAD
-from django.contrib.auth import views
-
-urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^',include('gym.urls')),
-    url(r'^accounts/', include('registration.backends.simple.urls')),
-    url(r'^logout/$', views.logout, {"next_page": '/'}),
-
-=======
 from django.contrib.auth import views 
 from django.contrib.auth import views as auth_views
 from django.conf import settings
@@ -37,5 +27,4 @@ urlpatterns = [
     url(r'^oauth/', include('social_django.urls',namespace="social")),
     url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^logout/$', views.logout, {"next_page": '/'}), 
->>>>>>> gift
 ]
