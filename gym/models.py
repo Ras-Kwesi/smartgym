@@ -111,3 +111,14 @@ class Event(models.Model):
   description = models.TextField(max_length=100)
   event_date = models.DateTimeField()
   admin = models.ForeignKey(User)
+
+
+class Join(models.Model):
+    """
+    Class that monitors which users have joined which gyms
+    """
+    user = models.OneToOneField(User)
+    gym = models.ForeignKey(Gym)
+
+    def __str__(self):
+        return self.user
