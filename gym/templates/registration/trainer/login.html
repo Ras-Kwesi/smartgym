@@ -29,17 +29,23 @@
           <div class="well" style="width:100% !important;border: solid black;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
             
             <div class="well-heading">
-              <h2 class="text-center" style="text-align:center;font-size: 40px;font-weight: bolder;">Sign In</h2>
+              <h2 class="text-center" style="text-align:center;font-size: 35px;font-weight: bolder;">Trainer Sign In</h2>
             </div>
             <hr>
             <div class="panel-body">
               
-              <form  action="/accounts/login/" method="post" style="text-align:center;font-size: 17px;">
+              <form  action="/trainer_login/" method="post" style="text-align:center;font-size: 17px;">
                 {% csrf_token %}
-                {% bootstrap_form form%}
-                
+                <p>Username</p>
+                <input type="text" name="name" placeholder="Enter Username" id="password">
+                <br>
+                <br>
+                <p>Password</p>
+                <input type="password" name="password" placeholder="Enter Password" id="password">
+                <br>
+                <br>
                 <div class="form-group">
-                  <input type="submit" class="btn btn-success btn-lg" value="Login">
+                  <input type="submit" class="btn btn-success btn-md" value="Login">
                 </div>
                 <a href="/accounts/password/change"><p>Forgot password?</p></a>
                 <p>--OR--</p>
@@ -49,7 +55,7 @@
                 </a>
                 <br>
                 <br>
-                <p class="have">Don't have an account? <a href="/accounts/register">Create account</a> </p>
+                <p class="have">Don't have an account? <a href="/trainer_signup/">Create account</a> </p>
                 <input type="hidden" name="next" value="{{next}}">
                 
               </form>
@@ -73,6 +79,16 @@
   }
   .btn{
     width:60%;
+  }
+  #password{
+    width: 85%;
+    height: 33px;
+    border-radius: 2px;
+    font-weight: bolder;
+  }
+  ::placeholder{
+    font-size: 15px !important;
+    text-align: center;
   }
 </style>
 
