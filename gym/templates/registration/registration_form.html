@@ -21,7 +21,7 @@
             <h2  style="text-align:center;font-size: 30px;font-weight: bolder;">Client Sign Up</h2>
           </div>
           <hr>
-          <form action="/client_signup/" method="post" style="text-align:center;font-size: 17px;">
+          <form action="/signup/" method="post" style="text-align:center;font-size: 17px;">
             {% csrf_token %}
             {% for field in form %}
             <p>
@@ -49,7 +49,7 @@
             <br>
             <br>
             <center>
-              <p class="have">Have an account? <a href="/client_login/">Log in</a> </p>
+              <p class="have">Have an account? <a href="/accounts/login/">Log in</a> </p>
             </center>
           </form>
           <br>

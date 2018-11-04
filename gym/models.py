@@ -10,9 +10,9 @@ from django.contrib.auth.models import AbstractUser
 # Profiles for unique feature of users are going to be extended to other profile classes ud=sing one to One R/ship
 class User(AbstractUser):
     USER_TYPE_CHOICES = (
-        (1, 'gymnast'),
-        (2, 'trainer'),
-        (3, 'gym_manager'),
+        (1, 'Client'),
+        (2, 'Trainer'),
+        (3, 'Gym manager'),
     )
     profile_pic = models.ImageField(upload_to='images/', blank=True)
     user_type = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES,null=True,blank=True)
@@ -105,7 +105,7 @@ class Gym(models.Model):
   image = models.ImageField(upload_to='images/')
   location = models.CharField(max_length=100)
   working_hours = models.TextField()
-  manager = models.ForeignKey('GymManager',default = 0)
+  manager = models.ForeignKey(GymManager)
 
 
 # This is the event class and is related to user as a foreign key, any user can create an event

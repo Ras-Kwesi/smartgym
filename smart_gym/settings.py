@@ -35,7 +35,7 @@ ALLOWED_HOSTS = ['*']
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Application definition
 
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'landing'
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '1026084911600-b2cf5qqei4cteg978l5lb5ou2i7p1bgd.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'dfx3i6to0Kq6sIEXbN40QI5p'
 
