@@ -90,7 +90,7 @@ def join(request , gymid):
     if Join.objects.filter(user = request.user).exists():
         Join.objects.filter(user_id = request.user).update(gym_id = this_gym.id)
     else:
-        Join(user=request.user, hood_id = this_gym.id).save()
+        Join(user=request.user, gym_id = this_gym.id).save()
     messages.success(request, 'Success! You have succesfully joined this Neighbourhood ')
     return redirect('landing')
 
@@ -101,7 +101,7 @@ def addgym(request):
     Renders the creating hood form
     """
     if request.method == 'POST':
-        form = AddgymForm(request.POST)
+        form = AddgymForm(request.POST,request.FILES)
         if form.is_valid():
             gym = form.save(commit = False)
             gym.manager = request.user
@@ -111,4 +111,10 @@ def addgym(request):
         form = AddgymForm()
         return render(request, 'forms/gym.html', {"form":form})
 
-
+@login_required(login_url='/accounts/login/')
+def exitgym(request, id):
+    """
+    Allows users to exit gyms
+    """
+    Join.objects.get(user_id = request.user).delete()
+    return redirect('landing')

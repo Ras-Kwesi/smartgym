@@ -9,5 +9,27 @@
 
 {% block content %}
 {{block.super}}
-<h1>Hey</h1>
+<div class="container">
+  <div class="row">
+      {% for gym in gyms %}
+      <div class="col-xs-12 col-sm-6 col-md-4 images">
+        <div class="card" style="width:100% !important;box-shadow: 0 12px 10px 0 rgba(0, 0, 0, 0.2), 0 15px 23px 0 rgba(0, 0, 0, 0.06);">
+          <div class="card-header">
+            <h4><b>{{gym.id}}) {{gym.name}}</b></h4>
+          </div>
+          <div class="card-body">
+              <img src="{{gym.image.url}}"  data-toggle="modal" data-target="#exampleModalCenter{{photo.id}}" class = "img-responsive imagee" alt="" style="height:350px;width: 100% !important;position: center;size: cover;">
+              <br>
+              <br>
+              <p><b>Location:</b> {{gym.location}}</p>
+          </div>
+          <div class="card-footer">
+            <a href="{% url 'join_gym' gym.id %}"><button type="button" class="btn btn-success" style="float:right !important;">Join Gym</button></a>
+          </div>
+        </div>
+        <br>
+      </div>
+      {% endfor %}
+</div>
+</div>
 {% endblock%}

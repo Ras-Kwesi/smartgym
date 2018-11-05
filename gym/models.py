@@ -105,7 +105,7 @@ class Gym(models.Model):
   image = models.ImageField(upload_to='images/')
   location = models.CharField(max_length=100)
   working_hours = models.TextField()
-  manager = models.ForeignKey(GymManager)
+  manager = models.ForeignKey(User)
 
 
 # This is the event class and is related to user as a foreign key, any user can create an event
