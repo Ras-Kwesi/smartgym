@@ -46,13 +46,10 @@ INSTALLED_APPS = [
     'bootstrap3',
     'bootstrap4',
     'social_django',
-     "geoposition",
-     'django_google_maps',
   
 
 ]
 
-GEOPOSITION_GOOGLE_MAPS_API_KEY = 'AIzaSyBrdUUuAf6IUCu5TojkPfccO_RNhxCwy8I'
 AUTHENTICATION_BACKENDS = [
     'social_core.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend',
@@ -91,17 +88,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'smart_gym.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'smartgym',
-#         'USER': 'kwesi',
-#     'PASSWORD': 'Makonnen14',
-#     }
-# }
 
 
 # Password validation
