@@ -1,11 +1,13 @@
 {% extends 'base.html'%}
 {% load bootstrap3 %}
 {% load bootstrap4 %}
+{% load leaflet_tags %}
 {% load static %}
 
 {% block styles %}
 {{block.super}}
-
+{% leaflet_css %}
+{% leaflet_js %}
 <link rel="stylesheet" href="{% static 'css/index.css' %}">
 <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
@@ -19,10 +21,9 @@
 <br> 
 <br>
 <div class="container" style="padding-left:100px;">
+{% leaflet_map "main"  %}
 
-
-
-  </div>
+</div>
 
 
 

@@ -11,7 +11,7 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 if config('MODE')=="dev":
    DATABASES = {
        'default': {
-           'ENGINE': 'django.db.backends.postgresql_psycopg2',
+           'ENGINE': 'django.contrib.gis.db.backends.postgis',
            'NAME': config('DB_NAME'),
            'USER': config('DB_USER'),
            'PASSWORD': config('DB_PASSWORD'),
@@ -54,11 +54,16 @@ INSTALLED_APPS = [
     'social_django',
      "geoposition",
      'django_google_maps',
+     'easy_maps',
+       'djgeojson',
+    'leaflet',
+    'django.contrib.gis',
   
 
 ]
-
 GEOPOSITION_GOOGLE_MAPS_API_KEY = 'AIzaSyBrdUUuAf6IUCu5TojkPfccO_RNhxCwy8I'
+EASY_MAPS_GOOGLE_MAPS_API_KEY = 'AIzaSyBrdUUuAf6IUCu5TojkPfccO_RNhxCwy8I'
+EASY_MAPS_CENTER = (-41.3, 32)
 AUTHENTICATION_BACKENDS = [
     'social_core.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend',
@@ -131,7 +136,10 @@ AUTH_PASSWORD_VALIDATORS = [
 GOOGLE_RECAPTCHA_SECRET_KEY = '6LcIlHgUAAAAADha40zt7GOGXUrcJ1FTyv6PYj_a'
 # This is for the ABSTRACTUSER model we have used
 AUTH_USER_MODEL = 'gym.User'
-
+LEAFLET_CONFIG ={
+#  'DEFAULT_CENTER': (-3.87, 178.59),
+# 'DEFAULT_ZOOM': 5,
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/

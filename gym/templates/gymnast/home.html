@@ -1,11 +1,13 @@
 {% extends 'base.html'%}
 {% load bootstrap3 %}
 {% load bootstrap4 %}
+{% load leaflet_tags %}
 {% load static %}
 
 {% block styles %}
 {{block.super}}
-
+{% leaflet_css %}
+{% leaflet_js %}
 <link rel="stylesheet" href="{% static 'css/index.css' %}">
 <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
@@ -27,14 +29,14 @@
                 <h2 style="color:black;"><b>{{gym.id}}) {{gym.name}}</b></h2>
               </div>
               <div class="card-body">
-                  <img src="{{gym.image.url}}"   alt="" style="height:500px;width: 100% !important;position: center;size: cover;">
-                  <br>
-                  <br>
-                  <h5><b><i class="fas fa-map-marker-alt"></i>&nbsp;:</b> {{gym.location}}</h5>
-                  <br>
-                  <h5><b></b> {{gym.description}}</h5>
-                  <br>
-                  <h5><b>Working Hours:</b> {{gym.working_hours}}</h5><br>
+           <img src="{{gym.image.url}}"   alt="" style="height:500px;width: 100% !important;position: center;size: cover;">
+            <br>
+            <br>
+          {% leaflet_map "main"  %}
+          <br>
+            <h5><b></b> {{gym.description}}</h5>
+              <br>
+          <h5><b>Working Hours:</b> {{gym.working_hours}}</h5><br>
     
               </div>
         
