@@ -10,7 +10,7 @@ from django.conf import settings
 import urllib
 import json
 import requests
-from .forms import SignupForm, AddgymForm
+from .forms import SignupForm, AddgymForm,NewEventForm
 from .decorators import check_recaptcha
 
 def signup(request):
@@ -116,3 +116,16 @@ def addgym(request):
         return render(request, 'forms/gym.html', {"form":form})
 
 
+@login_required(login_url='/accounts/login/')
+def new_event(request):
+    if request.method == 'POST':
+        form = NewEventForm(request.POST, request.FILES)
+        if form.is_valid():
+            gym = form.save(commit=False)
+            gym.manager = request.user
+            gym.save()
+        return redirect('home.html')
+
+    else:
+        form = NewEventForm()
+    return render(request, 'manager/new_event.html', {"form": form})
