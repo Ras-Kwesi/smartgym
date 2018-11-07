@@ -321,3 +321,18 @@ def addgym(request):
         return render(request, 'forms/gym.html', {"form":form})
 
 
+@login_required(login_url='/accounts/login/')
+def profile(request):
+    current_user = request.user
+
+    # profile = User.objects.get(user=current_user)
+    print(profile)
+    posts = Post.objects.filter(poster = current_user)
+    chatrooms = current_user.chatroom.all()
+    print(chatrooms)
+    # profile = Profile.objects.filter(user=request.user.id)
+    # friend = Friend.objects.get(current_user=current_user)
+    # friends = friend.users.all()
+    # print(friends)
+    return render(request, 'profile.html', {'profile': current_user,'posts':posts,'chatrooms':chatrooms})
+

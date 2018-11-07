@@ -22,6 +22,7 @@ urlpatterns=[
     url(r'^addgym/$', views.addgym, name='addgym'),
     url('^joinchat/(\d+)', views.joinchat, name='joinchat'),
     url('^exitchat/(\d+)', views.exitchatroom, name='exitchat'),
+    url('profile/$', views.profile, name='profile'),
 
     
 ]
