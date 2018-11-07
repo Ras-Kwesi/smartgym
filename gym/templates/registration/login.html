@@ -4,6 +4,11 @@
 
 {% block styles %}
 {{block.super}}
+<<<<<<< HEAD
+=======
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+<link href="https://fonts.googleapis.com/css?family=Skranji" rel="stylesheet">
+>>>>>>> kwesi
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="{% static 'css/login.css' %}">
@@ -23,13 +28,17 @@
         <br>
         <br>
         <br>
-        <br>
-        <br>
-        <div class="col-xs-12 col-sm-12 col-md-12 ">
-          <div class="well" style="width:100% !important;border: solid black;">
-            
-            <div class="well-heading">
-              <h2 class="text-center" style="text-align:center;font-size: 40px;font-weight: bolder;">Sign In</h2>
+
+         <p>--OR--</p>
+                <p>Login with</p>
+                </a> <a href="{% url 'social:begin' 'google-oauth2' %}">
+                  <button type="button" name="button" class="btn btn-danger">Google <i class="fab fa-google-plus-g"></i></button>
+                </a>
+                <br>
+                <br>
+                 <br>
+              <p>Don't have an account? <a href="/signup">Sign up</a>
+                </center>
             </div>
             <hr>
             <div class="panel-body">

@@ -1,5 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+# from django.contrib.auth import get_user_model
+
+# User = get_user_model()
+
 
 
 # Create your models here.
@@ -12,6 +16,7 @@ class User(AbstractUser):
         (2, 'Trainer'),
         (3, 'Gym manager'),
     )
+
     profile_pic = models.ImageField(upload_to='images/', blank=True)
     user_type = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES,null=True,blank=True)
     # location =
@@ -33,7 +38,7 @@ class Gymnast(models.Model):
     contact = models.CharField(max_length=30, blank=True)
     bio = models.TextField(max_length=50)
     chatroom = models.ManyToManyField('Chatroom')
-    gym = models.ForeignKey('Gym', on_delete=models.CASCADE, null=True)
+    gym = models.ForeignKey('Gym', null=True)
 
 
 # This is the class for the Trainer and has the unique features of the Trainers
@@ -59,6 +64,21 @@ class Chatroom(models.Model):
     name = models.CharField(max_length=20,unique=True)
     info = models.TextField(max_length=100)
     admin = models.ForeignKey(User,related_name='administrate')
+    users = models.ManyToManyField(User,related_name='chatroom')
+
+    @classmethod
+    def addchatroom(cls, chatroom, newuser):
+        room, created = cls.objects.get_or_create(
+            # chatroom=chatroom
+        )
+        room.users.add(newuser)
+
+    @classmethod
+    def removechatroom(cls, chatroom, newuser):
+        room, created = cls.objects.get_or_create(
+            # chatroom=chatroom
+        )
+        room.users.remove(newuser)
 
     def save_chatroom(self):
         self.save()
@@ -76,8 +96,8 @@ class Chatroom(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=30)
     post = models.TextField(max_length=100)
-    chatroom = models.ForeignKey(Chatroom,related_name='posts',null=True)
-    poster = models.ForeignKey(User,on_delete=models.CASCADE,related_name='post')
+    chatroom = models.ForeignKey(Chatroom,related_name='posts', null=True)
+    poster = models.ForeignKey(User, related_name='post')
 
 
     def save_post(self):

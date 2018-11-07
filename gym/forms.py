@@ -1,6 +1,18 @@
 from django import forms
+from .models import *
 from django.contrib.auth.forms import UserCreationForm
-from .models import User, Gym
+# from django.contrib.auth.models import User
+
+class ChatForm(forms.ModelForm):
+    class Meta:
+        model = Chatroom
+        exclude = ['admin','users']
+
+
+class ChatPostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        exclude = ['chatroom','poster']
 
 class SignupForm(UserCreationForm):
     email = forms.EmailField(max_length=200, help_text='Required')
