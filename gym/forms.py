@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import User, Gym
+from .models import User, Gym,Event
 
 class SignupForm(UserCreationForm):
     email = forms.EmailField(max_length=200, help_text='Required')
@@ -18,3 +18,12 @@ class AddgymForm(forms.ModelForm):
     class Meta:
         model = Gym
         exclude =['user', 'posted_on', 'manager'] 
+
+
+class NewEventForm(forms.ModelForm):
+    class Meta:
+        model = Event
+        exclude = ['user']
+        widgets = {
+            'likes': forms.CheckboxSelectMultiple(),
+    } 
