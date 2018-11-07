@@ -7,7 +7,7 @@ urlpatterns=[
     url('^$', views.index,name = 'landing'),
     url(r'^signup/$', views.signup, name='signup'),
     url(r'^addgym/$', views.addgym, name='addgym'),
-
+    url(r'^new/event$', views.new_event, name='new-event'),
     
 ]
 if settings.DEBUG:
