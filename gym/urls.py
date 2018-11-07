@@ -7,8 +7,10 @@ from django.conf.urls.static import static
 urlpatterns=[
     url('^$',views.index,name='landing'),
     # url('^$'),
-    url('^chatroom/(\w+)$', views.chatroom, name='chatroom'),
-    url('^post/(\w+)$', views.post, name='post'),
+    url('^chatroom/(\d+)$', views.chatroom, name='chatroom'),
+    url('^chatroom/(\d+)$', views.chat, name='chats'),
+    url(r'^join_chatroom/(\d+)$',views.join_chatroom, name = 'joinchatroom'),
+    url('^post/(\d+)$', views.post, name='post'),
     url('^newchatroom/$', views.newchatroom, name='newchatroom'),
     url('^chatrooms/$', views.chatrooms, name='chatrooms'),
     url(r'^trainer_login/$',views.trainer_login,name='trainer_login'),

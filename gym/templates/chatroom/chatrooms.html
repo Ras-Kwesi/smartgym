@@ -1,19 +1,27 @@
 {% extends 'base.html'%}
 {% load bootstrap4 %}
 {% block content %}
+{% include 'navbar.html'%}
 
-{% for chatroom in chatrooms %}
-
-<div class='col-md-6'>
-    <div class="jumbotron">
-        <h1>{{chatroom.name}}</h1>
-        <p>{{chatroom.info}}</p>
+<div class="container-fluid">
+    <div class="container">
         <div class="row">
-    <p></p>
-<a class="btn btn-danger" href="/joinchat/{{chatroom.id}}" >Join</a>
-    </div>
+                {% for chatroom in chatrooms %}
+
+                <div class="col-xs-12 col-sm-12 col-md-4" style="margin-left:50px;margin-top: 20px;">
+                    <div class="card" style="padding-left:10px;width:100% !important;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                        <br>
+                        <h3 style="font-weight:bolder;">{{chatroom.name}}</h3>
+                        <p>{{chatroom.topic}}</p>
+                    <p></p>
+                    <a class="btn btn-success" href="{% url 'joinchatroom' chatroom.id %}" style="width:40% !important;" >Join chatroom</a>
+                    <br>
+                    </div>
+
+                </div>
+                
+                {% endfor %}
+        </div>
     </div>
 </div>
-
-{% endfor %}
 {% endblock %}

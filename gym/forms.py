@@ -12,7 +12,7 @@ class ChatForm(forms.ModelForm):
 class ChatPostForm(forms.ModelForm):
     class Meta:
         model = Post
-        exclude = ['chatroom','poster']
+        exclude = ['posted_on','title','chatroom','poster']
 
 class SignupForm(UserCreationForm):
     email = forms.EmailField(max_length=200, help_text='Required')

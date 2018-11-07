@@ -9,24 +9,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
     {% load bootstrap4 %}
     {% load staticfiles %}
-  <title>New Image</title>
   {{form.media}}
 
 {% block styles %} {% bootstrap_css %}
-  <link rel="stylesheet" href="{% static 'css/base.css' %}"> {% endblock %}
+  <link rel="stylesheet" href="{% static 'css/base.css' %}"> 
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+
+  {% endblock %}
 
 </head>
 
 {% block content %}
 <body>
-<div class="col-md-6">
-  <form  action="{% url 'newchatroom'%}" method="post" enctype="multipart/form-data">
+<div class="col-xs-12 col-sm-12 col-md-4" style="margin-top:40px;">
+  <div class="jumbotron">
+     <form  action="{% url 'newchatroom'%}" method="post" enctype="multipart/form-data">
     {% csrf_token%}
 
     {% bootstrap_form newChatForm %}
-    <input type="submit" class="btn btn-success btn-lg" value="Post">
+    <input type="submit" class="btn btn-success btn-md" value="Post">
   </form>
 
+  </div>
    {% block scripts %}
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   {% bootstrap_javascript %} {% endblock %}
@@ -35,3 +39,9 @@
 </body>
 {% endblock %}
 </html>
+
+<style>
+    body{
+      font-family: 'Raleway', sans-serif !important;
+    }
+  </style>

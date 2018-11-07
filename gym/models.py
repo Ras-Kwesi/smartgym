@@ -62,14 +62,15 @@ class GymManager(models.Model):
 # This is the Chatroom Model that is related to User so as any user(Gymnast/trainer..) Can create a chatroom
 class Chatroom(models.Model):
     name = models.CharField(max_length=20,unique=True)
-    info = models.TextField(max_length=100)
+    topic = models.CharField(max_length=600)
     admin = models.ForeignKey(User,related_name='administrate')
     users = models.ManyToManyField(User,related_name='chatroom')
+
 
     @classmethod
     def addchatroom(cls, chatroom, newuser):
         room, created = cls.objects.get_or_create(
-            # chatroom=chatroom
+            chatroom=chatroom
         )
         room.users.add(newuser)
 
@@ -92,13 +93,25 @@ class Chatroom(models.Model):
         return room
 
 
+class JoinChat(models.Model):
+    """
+    Class that enables a user join a chatroom
+    """
+    user = models.OneToOneField(User)
+    chatroom = models.ForeignKey(Chatroom)
+
+    def __str__(self):
+        return self.user
 # This is the Post model for the posts that come under the Chatroom
 class Post(models.Model):
     title = models.CharField(max_length=30)
-    post = models.TextField(max_length=100)
+    post = models.CharField(max_length=500)
+    posted_on = models.DateTimeField(auto_now_add=True)
     chatroom = models.ForeignKey(Chatroom,related_name='posts', null=True)
     poster = models.ForeignKey(User, related_name='post')
 
+    class Meta:
+        ordering = ['posted_on']
 
     def save_post(self):
         self.save()
@@ -106,8 +119,14 @@ class Post(models.Model):
     def remove_post(self):
         self.delete()
 
+
     @classmethod
-    def get_hood_posts(cls,id):
+    def get_posts(cls):
+        posts = Post.objects.all()
+        return posts
+
+    @classmethod
+    def get_chatroom_posts(cls,id):
         posts = Post.objects.filter(id = id)
         return posts
 

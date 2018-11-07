@@ -29,14 +29,15 @@ def chatroom(request,room_id):              # This vew function is to log into a
 
     chatroom = get_object_or_404(Chatroom,pk=room_id)
     chatrooms = request.user.chatroom.all()
+    chatrooms = Chatroom.objects.all()
+
     print(chatroom)
     # posts = Post.objects.filter(chatroom=chatroom)
-    if chatroom in chatrooms:
-        chatroom = chatroom
-        return render(request, 'chatroom/chatroom.html', {'chatroom': chatroom,'form':form})
+    return render(request, 'chatroom/chatroom.html', locals())
 
 
-def post(request, id):                       # This view function is to make a post in a chatroom,its the formaction
+def post(request, id):       
+    posts = Post.get_posts().order_by('-posted_on')                # This view function is to make a post in a chatroom,its the formaction
     chatroom = Chatroom.objects.get(id=id)   # to the post form in chatroom
     print(id)
     # new_post = Post()
@@ -48,15 +49,50 @@ def post(request, id):                       # This view function is to make a p
             post.chatroom = chatroom
             print(post.poster)
             post.save()
-            return redirect('landing')
-        return redirect('landing')
+            return redirect('chatroom',id)
+        return redirect('chatroom', id)
 
+def chat(request, id):       
+    chats = Post.get_posts().order_by('-posted_on')                # This view function is to make a post in a chatroom,its the formaction
+    chatroom = Chatroom.objects.get(id=id)   # to the post form in chatroom
+    print(id)
+    # new_post = Post()
+    if request.method == 'POST':
+        newpost = ChatForm(request.POST,request.FILES)
+        if newpost.is_valid():
+            chat = newpost.save(commit=False)
+            post.poster = request.user
+            post.chatroom = chatroom
+            print(post.poster)
+            post.save()
+            return redirect('chatroom',id)
+        return redirect('chatroom', id)
 
-def chatrooms(request):                        # This is the view function to render all available chatrooms in the app
-    current_user = request.user
-    chatrooms = Chatroom.objects.all()
+@login_required(login_url='/accounts/login/')
+def chatrooms(request):
+    """
+    Enables a user to join a chatroom
+    """
+    if Join.objects.filter(user_id = request.user).exists():
+        chatroom = Chatroom.objects.get(pk = request.user.join.chatroom_id)
+        return render(request,'chatroom/chatroom.html', locals())
 
-    return render(request,'chatroom/chatrooms.html',{'chatrooms':chatrooms})
+    else:
+        chatrooms = Chatroom.objects.all()
+        return render(request, 'chatroom/chatrooms.html', locals())
+
+@login_required(login_url='/accounts/login/')
+def join_chatroom(request , chatroom_id):
+    """
+    View function that enables a user join a chat room
+    """
+    chatroom = Chatroom.objects.get(pk = chatroom_id)
+    if JoinChat.objects.filter(user = request.user).exists():
+        JoinChat.objects.filter(user_id = request.user).update(chatroom_id = chatroom.id)
+    else:
+        JoinChat(user=request.user, chatroom_id = chatroom.id).save()
+
+    return redirect('chatroom',chatroom_id)
 
 
 def exitchatroom(request,id):                  # This is the view function to exit a chatroom
@@ -79,11 +115,7 @@ def newchatroom(request):
             chatform.admin = current_user
             chatform.save()
             print('saved')
-
-            # request.session.modified = True
-            # current_user.profile.hood = hoodform.id
-        # return redirect('profilehood' + hoodform.name)
-        return redirect('landing')
+        return redirect('chatrooms')
 
 
     else:
@@ -92,21 +124,13 @@ def newchatroom(request):
 
 
 
-# def profilechatrooms(request):
-#     current_user = request.user
-#     chatrooms = current_user.chatroom.all()
-#
-#     return redirect('index')
-
-
-
-def joinchat(request,id):
+def joinchat(request, id):
     current_user = request.user
     chat = Chatroom.objects.get(id=id)
     chat.addchatroom(chat, current_user)
     chat.save()
 
-    return redirect('landing')
+    return redirect('chatroom',id)
 
 
 def user(request):
@@ -128,69 +152,6 @@ def manager_login(request):
 def trainer_login(request):
   
     return render(request, 'registration/trainer/login.html')
-
-# def trainer_signup(request):
-
-#     if request.method == 'POST':
-#         form = SignupForm(request.POST)
-#         if form.is_valid():
-  
-#             ''' Begin reCAPTCHA validation '''
-#             recaptcha_response = request.POST.get('g-recaptcha-response')
-#             url = 'https://www.google.com/recaptcha/api/siteverify'
-#             values = {
-#                 'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
-#                 'response': recaptcha_response
-#             }
-#             data = urllib.parse.urlencode(values).encode()
-#             req =  urllib.request.Request(url, data=data)
-#             response = urllib.request.urlopen(req)
-#             result = json.loads(response.read().decode())
-#             ''' End reCAPTCHA validation '''
-
-#             if result['success']:
-#                 form.save()
-#                 messages.success(request, 'Account verified successfully!')
-#             else:
-#                 messages.error(request, 'Invalid reCAPTCHA. Please try again.')
-
-#             return redirect('home')
-#     else:
-#         form = SignupForm()
-
-#     return render(request, 'registration/trainer/registration_form.html', {'form': form})
-
-
-# def client_signup(request):
-
-#     if request.method == 'POST':
-#         form = SignupForm(request.POST)
-#         if form.is_valid():
-  
-#             ''' Begin reCAPTCHA validation '''
-#             recaptcha_response = request.POST.get('g-recaptcha-response')
-#             url = 'https://www.google.com/recaptcha/api/siteverify'
-#             values = {
-#                 'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
-#                 'response': recaptcha_response
-#             }
-#             data = urllib.parse.urlencode(values).encode()
-#             req =  urllib.request.Request(url, data=data)
-#             response = urllib.request.urlopen(req)
-#             result = json.loads(response.read().decode())
-#             ''' End reCAPTCHA validation '''
-
-#             if result['success']:
-#                 form.save()
-#                 messages.success(request, 'Account verified successfully!')
-#             else:
-#                 messages.error(request, 'Invalid reCAPTCHA. Please try again.')
-
-#             return redirect('home')
-#     else:
-#         form = SignupForm()
-
-#     return render(request, 'registration/client/registration_form.html', {'form': form})
 
 
 def signup(request):
