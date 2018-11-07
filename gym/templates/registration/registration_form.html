@@ -15,13 +15,13 @@
         <p> Password or Username is incorrect </p>
         {% endif %}
         <div class="well" style="width:100% !important;border: solid black;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-          <div class="panel-header">
+          <!-- <div class="panel-header">
             <h2 style="text-align:center;font-size: 10px;font-weight: bolder;">Smart Gym</h2>
             <hr>
-            <h2  style="text-align:center;font-size: 10px;font-weight: bolder;">Trainer Sign Up</h2>
-          </div>
+            <h2  style="text-align:center;font-size: 10px;font-weight: bolder;">Client Sign Up</h2>
+          </div> -->
           <hr>
-          <form action="/trainer_signup/" method="post" style="text-align:center;font-size: 1px;">
+          <form action="/signup/" method="post" style="text-align:center;font-size: 17px;">
             {% csrf_token %}
             {% for field in form %}
             <p>
@@ -39,17 +39,17 @@
             {% endfor %}
             <br>
             <script src='https://www.google.com/recaptcha/api.js'></script>
-            <div class="col-xs-12 col-sm-12" style="width:50% !
+            <div class="col-xs-12 col-sm-12" style="width:20% !
             ;">
               <div class="g-recaptcha" data-sitekey="6LcIlHgUAAAAAN9wiTqX5EZAnkRbfEiXKjBIBm1e" ></div>
               <br>
             </div>
             <br>
-            <button type="submit" class="btn-lg btn btn-success" style="width:60%;">Sign up</button>
+            <button type="submit" class="btn-lg btn btn-success" style="width:10%;">Sign up</button>
             <br>
             <br>
             <center>
-              <p class="have">Have an account? <a href="/trainer_login/">Log in</a> </p>
+              <p class="have">Have an account? <a href="/accounts/login/">Log in</a> </p>
             </center>
           </form>
           <br>

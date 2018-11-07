@@ -1,0 +1,24 @@
+<!-- {% extends 'base.html'%}
+{% block content %}
+{{block.super}}
+<body>
+<div class="jumbotron" style="margin-left:250px;">
+        <p style="font-size:40px;text-align: center;">Gym Schedule</p>
+    <div class="row">
+        {% for entry in entries %}
+        <div class="card col-lg-4" style="padding:20px">
+            <h4>Gym name:{{entry.gym_name}}</h4>
+            <h4>Date:{{entry.date}}</h4>
+            <h4>Description:{{entry.description}}</h4>
+            <h4>Created:{{entry.created}}</h4>
+</div>
+        {%endfor%}
+    </div>
+</div>
+</body>
+<style>
+    body{
+        background-color: black;
+    }
+</style> -->
+{% endblock %}

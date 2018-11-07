@@ -1,0 +1,24 @@
+{% extends 'base.html'%}
+{% block content %}
+{{block.super}}
+<body>
+<div class="jumbotron" style="margin-left:250px;">
+        <p style="font-size:40px;text-align: center;">Events</p>
+    <div class="row">
+        {% for event in events %}
+        <div class="card col-lg-4" style="padding:20px">
+            <h4>Gym name:{{event.name}}</h4>
+            <h4>Description:{{event.description}}</h4>
+            <h4>Date:{{event.event_date}}</h4>
+            <h4>Created:{{event.created}}</h4>
+</div>
+        {%endfor%}
+    </div>
+</div>
+</body>
+<style>
+    body{
+        background-image:url(static/photos/pic.jpg);
+    }
+</style> 
+{% endblock %}
