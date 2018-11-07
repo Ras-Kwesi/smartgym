@@ -118,3 +118,12 @@ def exitgym(request, id):
     """
     Join.objects.get(user_id = request.user).delete()
     return redirect('landing')
+
+
+@login_required(login_url='/accounts/login/')
+def delgym(request , id):
+    """
+    View function that deleted a hood
+    """
+    Gym.objects.filter(pk = id).delete()
+    return redirect('landing')

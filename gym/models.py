@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-
-
+from geoposition.fields import GeopositionField
 
 
 # Create your models here.
@@ -103,7 +102,7 @@ class Gym(models.Model):
   posted_on = models.DateTimeField(auto_now_add=True)
   description = models.TextField(blank=True,null=True)
   image = models.ImageField(upload_to='images/')
-  location = models.CharField(max_length=100)
+  location = GeopositionField()
   working_hours = models.TextField()
   manager = models.ForeignKey(User)
 

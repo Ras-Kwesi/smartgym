@@ -25,6 +25,8 @@
           </div>
           <div class="card-footer">
             <a href="{% url 'join_gym' gym.id %}"><button type="button" class="btn btn-success" style="float:right !important;">Join Gym</button></a>
+                <a href ="/deletegym/{{gym.id}}" class="btn btn-danger btn-md">       <span class="glyphicon glyphicon-trash"></span>
+        </a>
           </div>
         </div>
         <br>

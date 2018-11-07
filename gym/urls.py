@@ -9,6 +9,7 @@ urlpatterns=[
     url(r'^addgym/$', views.addgym, name='addgym'),
     url(r'^join/(\d+)$',views.join, name = 'join_gym'),
     url(r'^exitgym/(\d+)$', views.exitgym, name='exitgym'),
+    url(r'^deletegym/(\d+)$',views.delgym, name = 'deletegym'),
 
     
 ]
