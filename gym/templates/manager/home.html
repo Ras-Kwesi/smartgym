@@ -3,22 +3,40 @@
 {{block.super}}
 <body>
 <div class="jumbotron" style="margin-left:250px;">
+    <a href="new/event"style="margin-left:80%;"; class="btn btn-success">CREATE EVENT</a>
         <p style="font-size:40px;text-align: center;">Events</p>
     <div class="row">
-        {% for event in events %}
-        <div class="card col-lg-4" style="padding:20px">
-            <h4>Gym name:{{event.name}}</h4>
-            <h4>Description:{{event.description}}</h4>
-            <h4>Date:{{event.event_date}}</h4>
-            <h4>Created:{{event.created}}</h4>
-</div>
-        {%endfor%}
-    </div>
+
+        <div class="container">
+            <div class="row">
+              {% for event in events %}
+              <div class="col-xs-12 col-sm-6 col-md-4 images">
+                <div class="card" style="width:100% !important;box-shadow: 0 12px 10px 0 rgba(0, 0, 0, 0.2), 0 15px 23px 0 rgba(0, 0, 0, 0.06);">
+                  <div class="card-header">
+                    <h4><b>{{event.name}}</b></h4>
+                  </div>
+                  <div class="card-body">
+                      <p><b>Description:</b> {{event.description}}</p>
+                      <p><b>Date:</b> {{event.event_date}}</p>
+
+                  </div>
+                 
+                </div>
+                <br>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
 </div>
 </body>
 <style>
     body{
         background-image:url(static/photos/pic.jpg);
+        font-family: 'Raleway', sans-serif;
+
+    }
+    h4{
+        font-size: 15px;
     }
 </style> 
 {% endblock %}
