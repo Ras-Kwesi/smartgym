@@ -129,3 +129,28 @@ def new_event(request):
     else:
         form = NewEventForm()
     return render(request, 'manager/new_event.html', {"form": form})
+
+def gymnast(request, user_id):
+    """
+    Function that enables one to see their gymnast
+    """
+    title = "gymnast"
+    images = Image.get_image_by_id(id= user_id).order_by('-posted_time')
+    gymnasts = User.objects.get(id=user_id)
+    user = User.objects.get(id=user_id)
+    return render(request, 'gymnast.html',{'title':title, "images":images,"gymnasts":gymnasts})
+
+  
+def new_gymnast(request):
+    current_user = request.user
+    gymnast=Gymnast.objects.get(user=request.user)
+    image= Gymnast.objects.get(user=request.user)
+    if request.method == 'POST':
+        form = GymnastForm(request.POST, request.FILES,instance=request.user.profile)
+        if form.is_valid():
+            form.save()
+        return redirect('/')
+
+    else:
+        form = GymnastForm()
+    return render(request, "edit_profile.html", {"form":form,"image":image}) 

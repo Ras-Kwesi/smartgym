@@ -1,24 +1,41 @@
-<!-- {% extends 'base.html'%}
+{% extends 'base.html'%}
 {% block content %}
 {{block.super}}
 <body>
 <div class="jumbotron" style="margin-left:250px;">
         <p style="font-size:40px;text-align: center;">Gym Schedule</p>
     <div class="row">
+        <div class="container">
+            <div class="row">
         {% for entry in entries %}
-        <div class="card col-lg-4" style="padding:20px">
-            <h4>Gym name:{{entry.gym_name}}</h4>
+        <div class="col-xs-12 col-sm-6 col-md-4 images">
+        <div class="card" style="width:100% !important;box-shadow: 0 12px 10px 0 rgba(0, 0, 0, 0.2), 0 15px 23px 0 rgba(0, 0, 0, 0.06);">
+                <div class="card-header">
+                        <h4><b>{{entry.gym_name}}</b></h4>
+                      </div>
+            <div class="card-body">       
             <h4>Date:{{entry.date}}</h4>
             <h4>Description:{{entry.description}}</h4>
             <h4>Created:{{entry.created}}</h4>
+            </div>
+</div>
+<br>
 </div>
         {%endfor%}
+    
     </div>
+</div>
+</div>
 </div>
 </body>
 <style>
     body{
         background-color: black;
+        font-family: 'Raleway', sans-serif;
     }
-</style> -->
+
+      h4{
+        font-size: 15px;
+    }
+</style> 
 {% endblock %}
