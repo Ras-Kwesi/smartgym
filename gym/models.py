@@ -39,8 +39,8 @@ class Gymnast(models.Model):
     goal = models.CharField(max_length=30, choices=goals)
     contact = models.CharField(max_length=30, blank=True)
     bio = models.TextField(max_length=50)
-    chatroom = models.ManyToManyField('Chatroom')
-    gym = models.ForeignKey('Gym', null=True)
+    chatroom = models.ManyToManyField('Chatroom', blank=True)
+    gym = models.ForeignKey('Gym', null=True, blank=True)
     profile_pic = models.ImageField(upload_to='images/', blank=True)
 
 

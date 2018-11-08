@@ -133,25 +133,25 @@ def joinchat(request, id):
     return redirect('chatroom',id)
 
 
-def user(request):
-    return render(request,'user_type.html', locals())
+# def user(request):
+#     return render(request,'user_type.html', locals())
 
-def homepage(request):
-    return render(request,'home.html', locals())
+# def homepage(request):
+#     return render(request,'home.html', locals())
 
-def client_login(request):
+# def client_login(request):
   
-    return render(request, 'registration/client/login.html')
+#     return render(request, 'registration/client/login.html')
 
     
-def manager_login(request):
+# def manager_login(request):
 
-    return render(request, 'registration/gym_manager/login.html')
+#     return render(request, 'registration/gym_manager/login.html')
 
     
-def trainer_login(request):
+# def trainer_login(request):
   
-    return render(request, 'registration/trainer/login.html')
+#     return render(request, 'registration/trainer/login.html')
 
 
 def signup(request):
@@ -186,33 +186,33 @@ def signup(request):
     return render(request, 'registration/registration_form.html', {'form': form})
 
 
-@check_recaptcha
-def client_signup(request):
+# @check_recaptcha
+# def client_signup(request):
 
-    if request.method == 'POST':
-        form = SignupForm(request.POST)
-        if form.is_valid() and request.recaptcha_is_valid:
-            form.save()
-            messages.success(request, 'Account created successfully!')
-            return redirect('home')
-    else:
-        form = SignupForm()
+#     if request.method == 'POST':
+#         form = SignupForm(request.POST)
+#         if form.is_valid() and request.recaptcha_is_valid:
+#             form.save()
+#             messages.success(request, 'Account created successfully!')
+#             return redirect('home')
+#     else:
+#         form = SignupForm()
 
-    return render(request, 'registration/client/registration_form.html', {'form': form})
+#     return render(request, 'registration/client/registration_form.html', {'form': form})
 
-@check_recaptcha
-def manager_signup(request):
+# @check_recaptcha
+# def manager_signup(request):
 
-    if request.method == 'POST':
-        form = SignupForm(request.POST)
-        if form.is_valid() and request.recaptcha_is_valid:
-            form.save()
-            messages.success(request, 'Account created successfully!')
-            return redirect('home')
-    else:
-        form = SignupForm()
+#     if request.method == 'POST':
+#         form = SignupForm(request.POST)
+#         if form.is_valid() and request.recaptcha_is_valid:
+#             form.save()
+#             messages.success(request, 'Account created successfully!')
+#             return redirect('home')
+#     else:
+#         form = SignupForm()
 
-    return render(request, 'registration/gym_manager/registration_form.html', {'form': form})
+#     return render(request, 'registration/gym_manager/registration_form.html', {'form': form})
 
 
 @check_recaptcha
@@ -265,14 +265,14 @@ def join(request , gymid):
     return redirect('landing')
 
 @login_required(login_url='/accounts/login/')
-def profile(request, user_id):
+def myprofile(request, user_id):
     """
     Function that enables one to see their profile details
     """
     title = "Profile"
     profiles = Gymnast.objects.get(user_id=user_id)
     users = User.objects.get(id=user_id)
-    return render(request, 'profile/profile.html', locals())
+    return render(request, 'myprofile.html', locals())
 
 
 @login_required(login_url='/accounts/login/')
