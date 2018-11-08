@@ -63,13 +63,22 @@ class Gymnast(models.Model):
 
 # This is the class for the Trainer and has the unique features of the Trainers
 class Trainer(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    user = models.ForeignKey(User,null=True,blank=True)
     name = models.CharField(max_length =30)
-    bio = models.CharField(max_length =30)
-    # location= models.ForeignKey(location)
-    gym = models.ForeignKey('Gym')
+    image = models.ImageField(upload_to='picture/',blank=True,null=True)
+    bio = models.CharField(max_length =100)
+    gym = models.ForeignKey('Gym',null=True,blank=True)
     specially=models.CharField(max_length =30)
-    year_Experience=models.CharField(max_length =30)
+    facebook = models.URLField(max_length=70,null=True,blank=True)
+    instagram = models.URLField(max_length=70,null=True,blank=True)
+    twitter = models.URLField(max_length=70,null=True,blank=True)
+    year_Experience=models.CharField(max_length =30,null=True,blank=True)
+
+    @classmethod
+    def get_trainers(cls):
+        trainers = Trainer.objects.all()
+        return trainers
+
 
 
 # This is the class for the GymManager and Has the unque features of the Gym Manager
@@ -159,6 +168,7 @@ class Gym(models.Model):
     image = models.ImageField(upload_to='images/')
     working_hours = models.TextField()
     manager = models.ForeignKey(User)
+
 
 
 # This is the event class and is related to user as a foreign key, any user can create an event

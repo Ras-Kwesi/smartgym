@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+{% extends 'base.html'%}
+
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load bootstrap4 %}
+    {% load staticfiles %}
+  {{form.media}}
+
+{% block styles %} {% bootstrap_css %}
+  <link rel="stylesheet" href="{% static 'css/base.css' %}"> 
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+
+  {% endblock %}
+
+</head>
+
+{% block content %}
+{% include 'navbar.html'%}
+<body>
+  <div class="container" style="padding-left:70px;">
+      <div class="col-xs-12 col-sm-12 col-md-8" style="width:100% !important;">
+          <div class="jumbotron" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+             <form  action="{% url 'add_trainer'%}" method="post" enctype="multipart/form-data">
+            {% csrf_token%}
+        
+            {% bootstrap_form form %}
+            <input type="submit" class="btn btn-success btn-md" value="Post">
+          </form>
+        
+          </div>
+           {% block scripts %}
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+          {% bootstrap_javascript %} {% endblock %}
+        
+        </div>
+  </div>
+
+</body>
+{% endblock %}
+</html>
+
+<style>
+    body{
+      font-family: 'Raleway', sans-serif !important;
+    }
+
+  </style>

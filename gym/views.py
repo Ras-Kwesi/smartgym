@@ -334,3 +334,29 @@ def profile(request):
     # print(friends)
     return render(request, 'profile.html', {'profile': current_user,'posts':posts,'chatrooms':chatrooms})
 
+
+@login_required(login_url='/accounts/login/')
+def add_trainer(request):
+    """
+    Enables a trainer to be added
+    """
+    if request.method == 'POST':
+        form =  AddTrainerForm(request.POST,request.FILES)
+        if form.is_valid():
+            trainer = form.save(commit = False)
+            trainer.manager = request.user
+            trainer.save()
+            return redirect('landing')
+    else:
+        form =  AddTrainerForm()
+        return render(request, 'forms/add_trainer.html', {"form":form})
+
+
+def trainers(request):
+    trainers = Trainer.objects.all()
+    return render(request,'trainers.html',locals())
+
+
+
+
+

@@ -27,6 +27,10 @@ urlpatterns=[
     url('profile/$', views.profile, name='profile'),
     url(r'^profile/edit/$', views.edit_profile, name='edit_profile'),
     url(r'^user/(\d+)$', views.myprofile, name='profile'),
+    url('^addtrainer/$', views.add_trainer, name='add_trainer'),
+    url('^trainers/$', views.trainers, name='gym_trainers'),
+
+
 
     
 ]

@@ -9,8 +9,9 @@
           <a class="dropdown-item" href="/accounts/password/change">Change Password</a>
           <a class="dropdown-item" href="/logout/">Logout</a>
         </div>
-    <a href="" class="collection-item">Trainers<span class="new badge">10</span></a>
-    <a href="">Clients</a>
+    <a href="{% url 'gym_trainers' %}">Trainers</a>
+    <a href="{% url 'add_trainer' %}">Add Trainer</a>
+    <a href="{% url 'profile' user.id%}">Profile</a>
     <a href="{% url 'newchatroom' %}">New Chatroom</a>
     <a href="{% url 'chatrooms' %}">Chatrooms</a>
     <a href=""><b>Events</b></a>

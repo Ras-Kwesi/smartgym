@@ -1,0 +1,76 @@
+
+{% extends 'base.html' %}
+{% load bootstrap3 %} 
+{% load staticfiles %}
+
+{% block content %}
+{% include 'navbar.html'%}
+<head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>  
+</head>
+<br>
+<div class="container">
+    <div class="row">
+            {% for trainer in trainers %}
+        <div class="col-xs-12 col-sm-12 col-md-4 img-container">
+                  <!-- Card Regular -->
+      <div class="card card-cascade" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+      
+            <!-- Card image -->
+            <div class="view view-cascade overlay">
+              <img class="card-img-top" src="{{trainer.image.url}}" alt="Card image cap">
+              <a>
+                <div class="mask rgba-white-slight"></div>
+              </a>
+            </div>
+          
+            <!-- Card content -->
+            <div class="card-body card-body-cascade text-center">
+              <!-- Title -->
+              <h4 class="card-title" style="font-weight:bolder;">{{trainer.name}}</h4>
+              <!-- Subtitle -->
+              <h6 class="font-weight-bold indigo-text py-2">Experience : {{trainer.year_Experience}}</h6>
+              <h6 class="font-weight-bold indigo-text py-2">Area of specialization : {{trainer.specially}}</h6>
+
+              <!-- Text -->
+              <p style="font-size:16.5px !important;font-weight: bolder;" class="card-text">{{trainer.bio}}
+              </p>
+          
+              <!-- Facebook -->
+              &nbsp;
+              <a href="{{trainer.facebook}}" target="__blank"><i class="fab fa-facebook-square"></i>&nbsp;&nbsp;</a>
+              <a href="{{trainer.instagram}}" target="__blank"><i class="fab fa-instagram"></i> &nbsp;&nbsp;</a> 
+              <a href="{{trainer.twitter}}" target="__blank"><i class="fab fa-twitter"></i> &nbsp;&nbsp;</a>  
+              <br>
+            </div>
+          
+          </div>
+          <!-- Card Regular -->
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<style>
+    i{
+        font-size: 28px !important;
+        color: black;
+    }
+    .img-container{
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    border-radius: 10px;
+    width: 100% !important;
+    height: 100% !important;
+  }
+  .img-container:hover{
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    opacity: 0.7;
+    overflow: hidden;
+    transition: .5s ease;
+    transform: translateY(-5px);
+  }
+</style>
+{% endblock %}

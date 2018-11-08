@@ -35,3 +35,9 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Gymnast
         exclude = ['user','chatroom','gym']
+
+
+class AddTrainerForm(forms.ModelForm):
+    class Meta:
+        model = Trainer
+        exclude = ['user','gym']
