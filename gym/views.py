@@ -283,14 +283,14 @@ def edit_profile(request):
     current_user = request.user
     profile = Gymnast.objects.get(user=request.user)
     if request.method == 'POST':
-        form = ProfileForm(request.POST, request.FILES)
+        form = ProfileForm(request.POST, request.FILES,instance= profile)
         if form.is_valid():
             profile = form.save(commit=False)
             profile.user = current_user
             profile.save()
         return redirect('landing')
     else:
-        form = ProfileForm()
+        form = ProfileForm(instance = profile)
     return render(request, 'edit-profile.html', {"form": form,})
 
 
