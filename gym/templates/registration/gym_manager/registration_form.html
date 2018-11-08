@@ -5,7 +5,7 @@
 <br>
 <br>
 <body>
-
+  
   <div class="container">
     <div class="row">
       <!-- Empty div -->
@@ -18,17 +18,17 @@
           <div class="panel-header">
             <h2 style="text-align:center;font-size: 40px;font-weight: bolder;">Smart Gym</h2>
             <hr>
-            <h2  style="text-align:center;font-size: 30px;font-weight: bolder;">Sign Up</h2>
+            <h2  style="text-align:center;font-size: 30px;font-weight: bolder;">Gym Manager Sign Up</h2>
           </div>
           <hr>
-          <form action="/signup/" method="post" style="text-align:center;font-size: 17px;">
+          <form action="/manager_signup/" method="post" style="text-align:center;font-size: 17px;">
             {% csrf_token %}
             {% for field in form %}
             <p>
               {{ field.label_tag }}<br>
-
+              
               {{ field }}
-
+              
               {% if field.help_text %}
               <small style="display: none">{{ field.help_text }}</small>
               {% endif %}
@@ -49,19 +49,19 @@
             <br>
             <br>
             <center>
-              <p class="have">Have an account? <a href="/accounts/login/">Log in</a> </p>
+              <p class="have">Have an account? <a href="/manager_login/">Log in</a> </p>
             </center>
           </form>
           <br>
-
+          
         </div>
       </div>
       <!-- empty div -->
       <div class="col-md-4"></div>
     </div>
-
+    
   </div>
-
+  
 
 </body>
 
@@ -87,4 +87,4 @@
     font-weight: bolder;
   }
 </style>
-{% endblock %}
+{% endblock %}  
