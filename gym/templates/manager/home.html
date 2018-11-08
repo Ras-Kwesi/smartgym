@@ -1,6 +1,8 @@
 {% extends 'base.html'%}
 {% block content %}
 {{block.super}}
+<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+
 <body>
 <!-- <div class="container-fluid">
     <a href="new/event"style="margin-left:80%;"; class="btn btn-success">CREATE EVENT</a>
@@ -33,7 +35,7 @@
  
     <header class="header">
        <div class="container">
-          <span>Welcome to Smart GYm</span>
+          <span>Welcome to Smart Gym</span>
           <h1>Event Schedule</h1>
  
           <div class="menu-toggle">
@@ -86,15 +88,7 @@
              </div>
           
           {% endfor %}
-          <button class="add-event-button">
-             <span class="add-event-button__title">Add Event</span>
- 
-             <span class="add-event-button__icon">
-                <i class="ion ion-ios-star-outline"></i>
-             </span> 
- 
- 
-          </button>
+        
        </div>
     </section>
  </div>
@@ -102,8 +96,9 @@
 </body>
 <style>
     body{
-        background-image:url(static/photos/pic.jpg);
+        
         font-family: 'Raleway', sans-serif;
+        background: #555966;
 
     }
     h4{
@@ -122,10 +117,9 @@
 }
 
 body {
-  background: linear-gradient(45deg, #13495f, #764be2, #8373c6, #77d3b9);
+  background:;
   background-attachment: fixed;
   height: 100vh;
-  padding: 3rem 0;
   margin: 0;
   color: #555;
   font-family: 'Lato', sans-serif;
@@ -230,7 +224,7 @@ body {
 }
 
 .today-box {
-  background: linear-gradient(to left, #485fed, rgba(255, 44, 118, 0.25)), #485fed;
+  background: linear-gradient(to left, #3add45, rgba(255, 44, 118, 0.25)), #4ca352;
   color: #FFF;
   padding: 37px 40px;
   position: relative;
@@ -239,7 +233,7 @@ body {
 }
 .today-box::before {
   content: "";
-  background: linear-gradient(to left, #485fed, rgba(255, 44, 118, 0.25)), #485fed;
+  background: linear-gradient(to left, #3add45, rgba(255, 44, 118, 0.25)), #485fed;
   opacity: 0.4;
   z-index: -1;
   display: block;
