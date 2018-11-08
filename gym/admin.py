@@ -16,4 +16,3 @@ from django.contrib.gis.admin import GeoModelAdmin
 from .models import Gym
 
 
-

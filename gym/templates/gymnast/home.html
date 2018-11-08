@@ -1,14 +1,11 @@
 {% extends 'base.html'%}
 {% load bootstrap3 %}
 {% load bootstrap4 %}
-{% load leaflet_tags %}
 {% load static %}
 
 {% block styles %}
 {{block.super}}
-{% leaflet_css %}
-{% leaflet_js %}
-<link rel="stylesheet" href="{% static 'css/index.css' %}">
+
 <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -26,17 +23,16 @@
       <div class="col-xs-12 col-sm-12 col-md-12 images">
         <div class="card" id="name">
             <div class="card-header">
-                <h2 style="color:black;"><b>{{gym.id}}) {{gym.name}}</b></h2>
+                <h2 style="color:black;"><b>{{gyms.id}}) {{gyms.name}}</b></h2>
               </div>
               <div class="card-body">
-           <img src="{{gym.image.url}}"   alt="" style="height:500px;width: 100% !important;position: center;size: cover;">
+           <img src="{{gyms.image.url}}"   alt="" style="height:500px;width: 100% !important;position: center;size: cover;">
             <br>
             <br>
-          {% leaflet_map "main"  %}
           <br>
-            <h5><b></b> {{gym.description}}</h5>
+            <h5><b></b> {{gyms.description}}</h5>
               <br>
-          <h5><b>Working Hours:</b> {{gym.working_hours}}</h5><br>
+          <h5><b>Working Hours:</b> {{gyms.working_hours}}</h5><br>
     
               </div>
         
@@ -67,7 +63,7 @@
 
   </div>
 <center>
-    <a href="/exitgym/{{gym.id}}" class="btn btn-warning"> Exit Gym </a>
+    <a href="/exitgym/{{user.id}}" class="btn btn-warning"> Exit Gym </a>
 </center>
 
 

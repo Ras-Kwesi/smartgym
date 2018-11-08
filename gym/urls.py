@@ -22,9 +22,11 @@ urlpatterns=[
     url(r'^addgym/$', views.addgym, name='addgym'),
     url('^joinchat/(\d+)', views.joinchat, name='joinchat'),
     url('^exitchat/(\d+)', views.exitchatroom, name='exitchat'),
+    url('^exitgym/(\d+)', views.exitgym, name='exitgym'),
     url('profile/$', views.profile, name='profile'),
     url(r'^profile/edit/$', views.edit_profile, name='edit_profile'),
     url(r'^user/(\d+)$', views.myprofile, name='profile'),
+    url('^viewgyms/$', views.view_gyms, name='viewgyms'),
 
     
 ]
