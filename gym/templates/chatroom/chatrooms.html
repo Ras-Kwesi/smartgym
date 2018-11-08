@@ -2,19 +2,21 @@
 {% load bootstrap4 %}
 {% block content %}
 {% include 'navbar.html'%}
-
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>  
 <div class="container-fluid">
     <div class="container">
         <div class="row">
                 {% for chatroom in chatrooms %}
 
-                <div class="col-xs-12 col-sm-12 col-md-4" style="margin-left:50px;margin-top: 20px;">
+                <div class="col-xs-12 col-sm-12 col-md-4" style="margin-top: 10px;">
                     <div class="card" style="padding-left:10px;width:100% !important;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
                         <br>
-                        <h3 style="font-weight:bolder;">{{chatroom.name}}</h3>
-                        <p>{{chatroom.topic}}</p>
+                        <h4 style="font-weight:bolder;">{{chatroom.name}}</h4>
+                        <p style="font-size:18px;font-weight:bold;">{{chatroom.topic}}</p>
                     <p></p>
-                    <a class="btn btn-success" href="{% url 'joinchatroom' chatroom.id %}" style="width:40% !important;" >Join chatroom</a>
+                    <a class="btn btn-success btn-rounded" href="{% url 'joinchatroom' chatroom.id %}" style="width:50% !important;" >Join chatroom</a>
                     <br>
                     </div>
 

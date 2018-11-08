@@ -3,12 +3,27 @@
 {% load staticfiles %}
 
 {% block content %}
+<head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>  
+</head>
+<br>
 <div class="container">
-<form  action="{%url 'edit_profile'%}" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-
-    {% bootstrap_form form%}
-    <input type="submit" class="btn btn-success btn-lg" value="Update">
-  </form>
+  <div class="jumbotron" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+      <form  action="{%url 'edit_profile'%}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+    
+        {% bootstrap_form form%}
+        <input type="submit" class="btn btn-success btn-lg" value="Update">
+      </form>
   </div>
+  </div>
+  <style>
+    label{
+      font-size: 17px !important;
+      font-weight: bold;
+      color: rgb(29, 29, 29);
+    }
+  </style>
 {% endblock %}

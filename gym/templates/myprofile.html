@@ -1,0 +1,26 @@
+
+{% extends 'base.html' %}
+{% load bootstrap3 %} 
+{% load staticfiles %}
+
+{% block content %}
+<head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>  
+</head>
+<br>
+<div class="container">
+    <a href="{%url 'edit_profile'%}"><button type="button" class="btn-md btn btn-success">Edit Profile</button>
+
+        
+    </a>
+  </div>
+  <style>
+    label{
+      font-size: 17px !important;
+      font-weight: bold;
+      color: rgb(29, 29, 29);
+    }
+  </style>
+{% endblock %}

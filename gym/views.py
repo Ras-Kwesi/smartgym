@@ -73,8 +73,9 @@ def chatrooms(request):
     """
     Enables a user to join a chatroom
     """
-    if Join.objects.filter(user_id = request.user).exists():
-        chatroom = Chatroom.objects.get(pk = request.user.join.chatroom_id)
+    if JoinChat.objects.filter(user_id = request.user).exists():
+        chatroom = Chatroom.objects.get(pk = request.user.joinchat.chatroom_id)
+        form = ChatPostForm()
         return render(request,'chatroom/chatroom.html', locals())
 
     else:
@@ -255,10 +256,13 @@ def join(request , gymid):
     this_gym = Gym.objects.get(pk = gymid)
     if Join.objects.filter(user = request.user).exists():
         Join.objects.filter(user_id = request.user).update(gym_id = this_gym.id)
+        gyms = Gym.objects.get(pk = gymid)
+        return render(request, 'gymnast/home.html', locals())
+
     else:
         Join(user=request.user, gym_id = this_gym.id).save()
     messages.success(request, 'Success! You have succesfully joined this Neighbourhood ')
-    return redirect('landing')
+    return redirect('')
 
 @login_required(login_url='/accounts/login/')
 def myprofile(request, user_id):
@@ -279,14 +283,15 @@ def edit_profile(request):
     current_user = request.user
     profile = Gymnast.objects.get(user=request.user)
     if request.method == 'POST':
-        form = ProfileForm(request.POST, request.FILES)
+        form = ProfileForm(request.POST, request.FILES,instance= profile)
         if form.is_valid():
             profile = form.save(commit=False)
             profile.user = current_user
             profile.save()
         return redirect('landing')
     else:
-        form = ProfileForm()
+       
+        form = ProfileForm(instance = profile)
     return render(request, 'edit-profile.html', {"form": form,})
 
 
@@ -312,7 +317,7 @@ def exitgym(request, id):
     Allows users to exit gyms
     """
     Join.objects.get(user_id = request.user).delete()
-    return redirect('landing')
+    return redirect('viewgyms')
 
 
 @login_required(login_url='/accounts/login/')
