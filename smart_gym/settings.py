@@ -49,12 +49,22 @@ INSTALLED_APPS = [
      "geoposition",
      'django_google_maps',
      'easy_maps',
-       'djgeojson',
+    'djgeojson',
     'leaflet',
     'django.contrib.gis',
   
 
 ]
+
+LEAFLET_CONFIG = {
+    'SPATIAL_EXTENT': (5.0, 44.0, 7.5, 46),
+    'DEFAULT_CENTER': (6.0, 45.0),
+    'DEFAULT_ZOOM': 16,
+    'MIN_ZOOM': 3,
+    'MAX_ZOOM': 18,
+}
+
+
 GEOPOSITION_GOOGLE_MAPS_API_KEY = 'AIzaSyBrdUUuAf6IUCu5TojkPfccO_RNhxCwy8I'
 EASY_MAPS_GOOGLE_MAPS_API_KEY = 'AIzaSyBrdUUuAf6IUCu5TojkPfccO_RNhxCwy8I'
 EASY_MAPS_CENTER = (-41.3, 32)

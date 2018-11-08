@@ -232,18 +232,14 @@ def trainer_signup(request):
 
 
 @login_required(login_url='/accounts/login/')
-def index(request):
+def index(request, user_id):
     """
     Renders the index page
     """
     if request.user.user_type == 1:
-        if Join.objects.filter(user_id = request.user).exists():
-            gym = Gym.objects.get(pk = request.user.join.gym_id)
-            return render(request, 'gymnast/home.html', locals())
-
-        else:
-            gyms = Gym.objects.all()
-            return render(request, 'gymnast/index.html', locals())
+        profiles = Gymnast.objects.get(user_id=user_id)
+        users = User.objects.get(id=user_id)
+        return render(request, 'gymnast/index.html', locals())
 
     elif request.user.user_type == 2:
         return render(request, 'trainer/home.html')
@@ -333,4 +329,23 @@ def profile(request):
     # friends = friend.users.all()
     # print(friends)
     return render(request, 'profile.html', {'profile': current_user,'posts':posts,'chatrooms':chatrooms})
+
+@login_required(login_url='/accounts/login/')
+def view_gyms(request):
+    """
+    Renders the  page
+    """
+    gyms = Gym.objects.all()
+    return render(request, 'gymnast/gyms.html', locals())
+    
+
+
+@login_required(login_url='/accounts/login/')
+def my_gyms(request):
+    """
+    Renders the  page
+    """
+    gym = Gym.objects.get(pk = request.user.join.gym_id)
+    return render(request, 'gymnast/gyms.html', locals())
+
 
