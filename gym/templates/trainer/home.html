@@ -2,8 +2,8 @@
 {% block content %}
 {{block.super}}
 <body>
-<div class="jumbotron" style="margin-left:250px;">
-        <p style="font-size:40px;text-align: center;">Gym Schedule</p>
+<div class="container" style="padding-left:200px;">
+        <p style="font-size:40px;text-align: center;color:whitesmoke;">Gym Schedule</p>
     <div class="row">
         <div class="container">
             <div class="row">
@@ -11,12 +11,12 @@
         <div class="col-xs-12 col-sm-6 col-md-4 images">
         <div class="card" style="width:100% !important;box-shadow: 0 12px 10px 0 rgba(0, 0, 0, 0.2), 0 15px 23px 0 rgba(0, 0, 0, 0.06);">
                 <div class="card-header">
-                        <h4><b>{{entry.gym_name}}</b></h4>
+                        <h4 style="font-weight:bolder !important;"><b>{{entry.gym_name}}</b></h4>
                       </div>
             <div class="card-body">       
             <h4>Date:{{entry.date}}</h4>
-            <h4>Description:{{entry.description}}</h4>
-            <h4>Created:{{entry.created}}</h4>
+            <h4>From:{{entry.From}}</h4>
+            <h4>To:{{entry.To}}</h4>
             </div>
 </div>
 <br>

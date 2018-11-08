@@ -303,3 +303,10 @@ def index(request, user_id):
 def events(request):
     events = Event.objects.all()
     return render(request,'manager/home.html',locals())
+
+
+def entries(request):
+    entries = Entry.objects.all()
+    print(entries)
+    print('notworking')
+    return render(request, 'trainer/home.html',locals())   

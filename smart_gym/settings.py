@@ -5,8 +5,8 @@ from decouple import config,Csv
 
 
 MODE=config("MODE", default="dev")
-SECRET_KEY = config('SECRET_KEY')
-DEBUG = config('DEBUG', default=False, cast=bool)
+SECRET_KEY = 'jhhiu279ydh91'
+DEBUG = True
 # development
 if config('MODE')=="dev":
    DATABASES = {

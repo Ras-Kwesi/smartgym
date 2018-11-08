@@ -8,7 +8,7 @@ urlpatterns=[
     url(r'^(\d+)$', views.index,name = 'landing'),
     url(r'^signup/$', views.signup, name='signup'),
     url(r'^events/$', views.events, name='events'),
-
+    url(r'^entries/$', views.entries, name='entries'),
     url(r'^addgym/$', views.addgym, name='addgym'),
     url(r'^new/event$', views.new_event, name='new-event'),
     url('^$',views.index,name='landing'),
@@ -24,6 +24,7 @@ urlpatterns=[
     url('^exitchat/(\d+)', views.exitchatroom, name='exitchat'),
     url('profile/$', views.profile, name='profile'),
     url(r'^profile/edit/$', views.edit_profile, name='edit_profile'),
+    url(r'^user/(\d+)$', views.myprofile, name='profile'),
 
     
 ]

@@ -1,21 +1,20 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 
 <div class="sidebar">
-    <a class="nav-link" style="font-weight: bolder;font-size: 20px;" href="">Smart Gym</a>
-    <a class="active" href="#name">Home</a>
+    <a class="nav-link" style="font-weight: bolder;font-size: 20px;" href="/">Smart Gym</a>
+    <a class="active" href="/">Home</a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/accounts/password/change">Change Password</a>
           <a class="dropdown-item" href="/logout/">Logout</a>
         </div>
-    <a href="{%url 'addgym'%}">Add gym</a>
+    <a href="{%url 'profile' user.id %}">Profile &nbsp;<i class="fas fa-user-circle"></i></a>
     <a href="">Trainers</a>
     <a href="">Clients</a>
-    <a href="{% url 'events' %}"><b>Events</b></a>
-    <a href="">Trainers</a>
-    <a href="">Clients</a>
-    <a href="{% url 'newchatroom' %}">New Chatroom</a>
+    <a href="{% url 'newchatroom' %}">New Chatroom&nbsp;<i class="fas fa-plus"></i></a>
     <a href="{% url 'chatrooms' %}">Chatrooms</a>
-    <a href=""><b>Events</b></a>
+    <a href="{% url 'entries' %}">Schedule</a>
+    <a href="{% url 'events' %}"><b>Events</b></a>
     <a href="#gallery"><b>Gallery</b></a>
 
     <a class="nav-link dropdown-toggle locations" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="">

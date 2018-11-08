@@ -42,8 +42,8 @@ class Gymnast(models.Model):
     goal = models.CharField(max_length=30, choices=goals)
     contact = models.CharField(max_length=30, blank=True)
     bio = models.TextField(max_length=50)
-    chatroom = models.ManyToManyField('Chatroom')
-    gym = models.ForeignKey('Gym', null=True)
+    chatroom = models.ManyToManyField('Chatroom', blank=True)
+    gym = models.ForeignKey('Gym', null=True, blank=True)
     profile_pic = models.ImageField(upload_to='images/', blank=True)
 
 
@@ -160,9 +160,7 @@ class Gym(models.Model):
     posted_on = models.DateTimeField(auto_now_add=True)
     description = models.TextField(blank=True,null=True)
     image = models.ImageField(upload_to='images/')
-    geom = models.PointField(srid=4326)
     working_hours = models.TextField()
-    objects = geomodels.GeoManager()
     manager = models.ForeignKey(User)
 
 
@@ -187,9 +185,9 @@ class Join(models.Model):
 
 class Entry(models.Model):
     gym_name = models.CharField(max_length=100)
-    date = models.DateTimeField() 
-    description = models.TextField() 
-    created = models.DateTimeField(auto_now_add=True)         
+    date = models.DateField() 
+    From = models.TimeField()
+    To = models.TimeField()         
 
     def __str__(self):
         return f'{self.gym_name} {self.date}'

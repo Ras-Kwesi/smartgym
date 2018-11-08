@@ -20,22 +20,26 @@
 </head>
 
 {% block content %}
+{% include 'navbar.html'%}
 <body>
-<div class="col-xs-12 col-sm-12 col-md-4" style="margin-top:40px;">
-  <div class="jumbotron">
-     <form  action="{% url 'newchatroom'%}" method="post" enctype="multipart/form-data">
-    {% csrf_token%}
-
-    {% bootstrap_form newChatForm %}
-    <input type="submit" class="btn btn-success btn-md" value="Post">
-  </form>
-
+  <div class="container" style="padding-left:70px;">
+      <div class="col-xs-12 col-sm-12 col-md-4">
+          <div class="jumbotron" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+             <form  action="{% url 'newchatroom'%}" method="post" enctype="multipart/form-data">
+            {% csrf_token%}
+        
+            {% bootstrap_form newChatForm %}
+            <input type="submit" class="btn btn-success btn-md" value="Post">
+          </form>
+        
+          </div>
+           {% block scripts %}
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+          {% bootstrap_javascript %} {% endblock %}
+        
+        </div>
   </div>
-   {% block scripts %}
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  {% bootstrap_javascript %} {% endblock %}
 
-</div>
 </body>
 {% endblock %}
 </html>

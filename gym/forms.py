@@ -43,4 +43,4 @@ class NewEventForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Gymnast
-        exclude = ['user']
+        exclude = ['user','chatroom','gym']
