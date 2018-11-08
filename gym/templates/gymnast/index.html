@@ -11,3 +11,16 @@
 {{block.super}}
 <h1>Hey</h1>
 {% endblock%}
+
+
+
+{% block content %}
+{% include 'navbar.html' %}
+<div class="container">
+<a href="{%url 'edit_profile'%}"> Edit profile </a>
+<a href="{%url 'profile' user.id %}"> View profile </a>
+
+
+
+</div>
+{% endblock %}

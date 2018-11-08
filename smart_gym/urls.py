@@ -19,6 +19,8 @@ from django.contrib.auth import views
 from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
+from djgeojson.views import GeoJSONLayerView
+from gym.models import Gym
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -27,5 +29,6 @@ urlpatterns = [
     url(r'^oauth/', include('social_django.urls',namespace="social")),
     url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^logout/$', views.logout, {"next_page": '/'}), 
+     url(r'^data/$', GeoJSONLayerView.as_view(model=Gym, properties=('name','description','geom','working_hours')), name = 'data'),
 ]
 

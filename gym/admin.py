@@ -7,7 +7,17 @@ admin.site.register(Trainer)
 admin.site.register(GymManager)
 admin.site.register(Chatroom)
 admin.site.register(Post)
-admin.site.register(Gym)
 admin.site.register(Event)
 admin.site.register(Join)
 admin.site.register(Entry)
+from leaflet.admin import LeafletGeoAdmin
+from django.contrib.gis.admin import GeoModelAdmin
+from .models import Gym
+
+
+class GymAdmin(LeafletGeoAdmin):
+    list_display = ('name','description','image','geom','working_hours')
+
+
+
+admin.site.register(Gym, GymAdmin)

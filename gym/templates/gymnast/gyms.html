@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static%}
+{% load leaflet_tags %}
+
+{% block styles%}
+{{block.super}}
+<link href="https://fonts.googleapis.com/css?family=Fredoka+One|Patua+One|Philosopher" rel="stylesheet"> 
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock %}
+
+{% block content %}
+{{block.super}}
+{% leaflet_css %}
+<div class="container">
+  <div class="row">
+      {% for gym in gyms %}
+      <div class="col-xs-12 col-sm-6 col-md-4 images">
+        <div class="card" style="width:100% !important;box-shadow: 0 12px 10px 0 rgba(0, 0, 0, 0.2), 0 15px 23px 0 rgba(0, 0, 0, 0.06);">
+          <div class="card-header">
+            <h4><b> {{gym.name}}</b></h4>
+          </div>
+          <div class="card-body">
+              <img src="{{gym.image.url}}"  data-toggle="modal" data-target="#exampleModalCenter{{photo.id}}" class = "img-responsive imagee" alt="" style="height:350px;width: 100% !important;position: center;size: cover;">
+              <br>
+              <br>
+              <h4><b> {{gym.description}}</b></h4>
+              <p><b>Location</b> {% leaflet_map "main" callback="ourfunction" %} </p>
+          </div>
+          <div class="card-footer">
+            <a href="{% url 'join_gym' gym.id %}"><button type="button" class="btn btn-success" style="float:right !important;">Join Gym</button></a>
+                <a href ="/deletegym/{{gym.id}}" class="btn btn-danger btn-md">       <span class="glyphicon glyphicon-trash"></span>
+        </a>
+          </div>
+        </div>
+        <br>
+      </div>
+      {% endfor %}
+</div>
+</div>
+{% endblock%}
+
+{% block scripts%}
+{{block.super}}
+{% leaflet_js %}
+<script type ="text/javascript">
+function ourfunction(map, options){
+var ourdata = '{% url "data"%}';
+$.getJSON(ourdata, function(data){
+L.geoJson(data).addTo(map);
+})
+}
+</script>
+{% endblock %}

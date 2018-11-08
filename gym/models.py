@@ -1,5 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.contrib.gis.db import models as geomodels
+from django.contrib.gis.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+
+
 
 
 
@@ -14,7 +21,8 @@ class User(AbstractUser):
         (2, 'Trainer'),
         (3, 'Gym manager'),
     )
-    profile_pic = models.ImageField(upload_to='images/', blank=True)
+
+    
     user_type = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES,null=True,blank=True)
     # location =
     contact = models.CharField(max_length=30, blank=True)
@@ -22,7 +30,7 @@ class User(AbstractUser):
 
 # This is the Class for the clients and has the usique properties of gmnasts
 class Gymnast(models.Model):
-    user = models.ManyToManyField(User, related_name='gymnast')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     goals = (
         ('Losing weight', 'Losing weight'),
         ('Getting toned', 'Getting toned'),
@@ -35,8 +43,26 @@ class Gymnast(models.Model):
     contact = models.CharField(max_length=30, blank=True)
     bio = models.TextField(max_length=50)
     chatroom = models.ManyToManyField('Chatroom')
-    gym = models.ForeignKey('Gym', on_delete=models.CASCADE, null=True)
+    gym = models.ForeignKey('Gym', null=True)
+    profile_pic = models.ImageField(upload_to='images/', blank=True)
 
+
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Gymnast.objects.create(user=instance)
+
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.gymnast.save()
+
+    post_save.connect(save_user_profile, sender=User)
+
+    def save_profile(self):
+        self.save()
+
+    def del_profile(self):
+        self.delete()
 
 # This is the class for the Trainer and has the unique features of the Trainers
 class Trainer(models.Model):
@@ -59,8 +85,24 @@ class GymManager(models.Model):
 # This is the Chatroom Model that is related to User so as any user(Gymnast/trainer..) Can create a chatroom
 class Chatroom(models.Model):
     name = models.CharField(max_length=20,unique=True)
-    info = models.TextField(max_length=100)
+    topic = models.CharField(max_length=600)
     admin = models.ForeignKey(User,related_name='administrate')
+    users = models.ManyToManyField(User,related_name='chatroom')
+
+
+    @classmethod
+    def addchatroom(cls, chatroom, newuser):
+        room, created = cls.objects.get_or_create(
+            chatroom=chatroom
+        )
+        room.users.add(newuser)
+
+    @classmethod
+    def removechatroom(cls, chatroom, newuser):
+        room, created = cls.objects.get_or_create(
+            # chatroom=chatroom
+        )
+        room.users.remove(newuser)
 
     def save_chatroom(self):
         self.save()
@@ -74,13 +116,25 @@ class Chatroom(models.Model):
         return room
 
 
+class JoinChat(models.Model):
+    """
+    Class that enables a user join a chatroom
+    """
+    user = models.OneToOneField(User)
+    chatroom = models.ForeignKey(Chatroom)
+
+    def __str__(self):
+        return self.user
 # This is the Post model for the posts that come under the Chatroom
 class Post(models.Model):
     title = models.CharField(max_length=30)
-    post = models.TextField(max_length=100)
-    chatroom = models.ForeignKey(Chatroom,related_name='posts',null=True)
-    poster = models.ForeignKey(User,on_delete=models.CASCADE,related_name='post')
+    post = models.CharField(max_length=500)
+    posted_on = models.DateTimeField(auto_now_add=True)
+    chatroom = models.ForeignKey(Chatroom,related_name='posts', null=True)
+    poster = models.ForeignKey(User, related_name='post')
 
+    class Meta:
+        ordering = ['posted_on']
 
     def save_post(self):
         self.save()
@@ -88,24 +142,28 @@ class Post(models.Model):
     def remove_post(self):
         self.delete()
 
+
     @classmethod
-    def get_hood_posts(cls,id):
+    def get_posts(cls):
+        posts = Post.objects.all()
+        return posts
+
+    @classmethod
+    def get_chatroom_posts(cls,id):
         posts = Post.objects.filter(id = id)
         return posts
 
 
 # This is the Gym class that falls only under a gym manager, but related to it through a foreign key
 class Gym(models.Model):
-  '''
-  Class that contains gym class properties,methods and functions
-  '''
-  name = models.CharField(max_length=100)
-  posted_on = models.DateTimeField(auto_now_add=True)
-  description = models.TextField(blank=True,null=True)
-  image = models.ImageField(upload_to='images/')
-  location = models.CharField(max_length=100)
-  working_hours = models.TextField()
-  manager = models.ForeignKey(GymManager)
+    name = models.CharField(max_length=100)
+    posted_on = models.DateTimeField(auto_now_add=True)
+    description = models.TextField(blank=True,null=True)
+    image = models.ImageField(upload_to='images/')
+    geom = models.PointField(srid=4326)
+    working_hours = models.TextField()
+    objects = geomodels.GeoManager()
+    manager = models.ForeignKey(User)
 
 
 # This is the event class and is related to user as a foreign key, any user can create an event

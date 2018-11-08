@@ -2,15 +2,16 @@
 {% block content %}
 {{block.super}}
 <body>
-<div class="jumbotron" style="margin-left:250px;">
+<div class="container-fluid">
     <a href="new/event"style="margin-left:80%;"; class="btn btn-success">CREATE EVENT</a>
-        <p style="font-size:40px;text-align: center;">Events</p>
-    <div class="row">
-
-        <div class="container">
+    <br>  
+    <br>
+    <br>
+    
+        <div class="container" style="padding-left:200px;">
             <div class="row">
               {% for event in events %}
-              <div class="col-xs-12 col-sm-6 col-md-4 images">
+              <div class="col-xs-12 col-sm-12 col-md-4 images">
                 <div class="card" style="width:100% !important;box-shadow: 0 12px 10px 0 rgba(0, 0, 0, 0.2), 0 15px 23px 0 rgba(0, 0, 0, 0.06);">
                   <div class="card-header">
                     <h4><b>{{event.name}}</b></h4>
@@ -18,9 +19,7 @@
                   <div class="card-body">
                       <p><b>Description:</b> {{event.description}}</p>
                       <p><b>Date:</b> {{event.event_date}}</p>
-
                   </div>
-                 
                 </div>
                 <br>
               </div>
@@ -39,4 +38,5 @@
         font-size: 15px;
     }
 </style> 
+</div>
 {% endblock %}

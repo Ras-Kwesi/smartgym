@@ -1,6 +1,19 @@
 from django import forms
+from .models import *
 from django.contrib.auth.forms import UserCreationForm
-from .models import User, Gym,Event
+# from .models import User, Gym,Event
+# from django.contrib.auth.models import User
+
+class ChatForm(forms.ModelForm):
+    class Meta:
+        model = Chatroom
+        exclude = ['admin','users']
+
+
+class ChatPostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        exclude = ['posted_on','title','chatroom','poster']
 
 class SignupForm(UserCreationForm):
     email = forms.EmailField(max_length=200, help_text='Required')
@@ -27,3 +40,7 @@ class NewEventForm(forms.ModelForm):
         widgets = {
             'likes': forms.CheckboxSelectMultiple(),
     } 
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Gymnast
+        exclude = ['user']
