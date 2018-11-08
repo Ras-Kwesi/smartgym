@@ -16,6 +16,7 @@ from django.contrib import messages
 from django.conf import settings
 import requests
 from .decorators import check_recaptcha
+# import numpy as np
 # from .decorators import check_recaptcha
 
 
@@ -155,7 +156,7 @@ def joinchat(request, id):
 #     return render(request, 'registration/trainer/login.html')
 
 
-def signup(request):
+def signup(request, user_id):
 
     if request.method == 'POST':
         form = SignupForm(request.POST)
@@ -180,7 +181,7 @@ def signup(request):
             else:
                 messages.error(request, 'Invalid reCAPTCHA. Please try again.')
 
-            return redirect('landing')
+            return redirect('landing', user_id=user_id)
     else:
         form = SignupForm()
 
@@ -240,6 +241,10 @@ def index(request, user_id):
     if request.user.user_type == 1:
         profiles = Gymnast.objects.get(user_id=user_id)
         users = User.objects.get(id=user_id)
+        bmi = round((profiles.weight/(profiles.height/100)**2),2)
+        # print(bmi)
+        # # print(x)
+
         return render(request, 'gymnast/index.html', locals())
 
     elif request.user.user_type == 2:
@@ -276,7 +281,7 @@ def myprofile(request, user_id):
 
 
 @login_required(login_url='/accounts/login/')
-def edit_profile(request):
+def edit_profile(request, user_id):
     """
     Function that enables one to edit their profile information
     """
@@ -287,8 +292,12 @@ def edit_profile(request):
         if form.is_valid():
             profile = form.save(commit=False)
             profile.user = current_user
+            # w = form.weight
+            # h = form.height
+            # print(w)
+            # print(h)
             profile.save()
-        return redirect('landing')
+        return redirect('landing', user_id=user_id)
     else:
        
         form = ProfileForm(instance = profile)
@@ -352,5 +361,7 @@ def my_gyms(request):
     """
     gym = Gym.objects.get(pk = request.user.join.gym_id)
     return render(request, 'gymnast/gyms.html', locals())
+
+
 
 

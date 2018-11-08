@@ -1,103 +1,59 @@
-{% extends 'base.html' %}
-
-
-
+{% extends 'base.html'%}
 {% block content %}
 {% include 'navbar.html' %}
-<div class="container">
-<a href="{%url 'edit_profile'%}"><button type="button" class="btn-md btn btn-success">Edit Profile</button>
- {% if profiles.weight %}
+<div class="container" style="padding-left:60px;">
+{% if profiles.weight %}
         <div class="wrapper">
- <div class="profile-card js-profile-card">
-    <div class="profile-card__img">
-     {% if profiles.profile_pic %}
-     <img src="{{profiles.profile_pic.url}}">
-      {% else %}
-   <img src="/static/img/avatar.jpg" alt="avatar" class="img-thumbnail rounded-circle prof">
-    <center>{{user.username}}</center>
-{% endif %}
-     </div>
-   <div class="profile-card__cnt js-profile-cnt">
-       <div class="profile-card__name"></div>
-       <div class="profile-card__txt"></strong></div>
-     <div class="profile-card-loc">
-        <span class="profile-card-loc__icon">
-     <svg class="icon"><use xlink:href="#icon-location"></use></svg>
+
+  
+                <div class="profile-card js-profile-card">
+                  <div class="profile-card__img">
+                   {% if profiles.profile_pic %}
+                    <img src="{{profiles.profile_pic.url}}">
+                     {% else %}
+                      <img src="/static/img/avatar.jpg" alt="avatar" class="img-thumbnail rounded-circle prof">
+                      {% endif %}
+                  </div>
+              
+                  <div class="profile-card__cnt js-profile-cnt">
+                    <div class="profile-card__name">{{user.username}}</div>
+                    <div class="profile-card__txt">{{profiles.bio}}</strong></div>
+                    <div class="profile-card-loc">
+                      <span class="profile-card-loc__icon">
+                        <svg class="icon"></svg>
                       </span>
-       <span class="profile-card-loc__txt">
-                      
+              
+                      <span class="profile-card-loc__txt">
+                        GOAL:&nbsp;{{profiles.goal}}
                       </span>
                     </div>
-        <div class="profile-card-inf">
+              
+                    <div class="profile-card-inf">
                       <div class="profile-card-inf__item">
-                        <div class="profile-card-inf__title"></div>
-                        <div class="profile-card-inf__txt"></div>
+                        <div class="profile-card-inf__title">{{profiles.weight}} kg</div>
+                        <div class="profile-card-inf__txt">Weight</div>
                       </div>
               
                       <div class="profile-card-inf__item">
-                        <div class="profile-card-inf__title"></div>
-                        <div class="profile-card-inf__txt"></div>
+                        <div class="profile-card-inf__title">{{profiles.height}} cm</div>
+                        <div class="profile-card-inf__txt">Height</div>
                       </div>
               
                       <div class="profile-card-inf__item">
-                        <div class="profile-card-inf__title"></div>
-                        <div class="profile-card-inf__txt"></div>
+                        <div class="profile-card-inf__title">{{bmi}} </div>
+                        <div class="profile-card-inf__txt">Your BMI</div>
                       </div>
-              
-                      <div class="profile-card-inf__item">
-                        <div class="profile-card-inf__title"></div>
-                        <div class="profile-card-inf__txt"></div>
-                      </div>
-                    </div>
-              
-                    <div class="profile-card-social">
-                      <a href="https://www.facebook.com/iaMuhammedErdem" class="profile-card-social__item facebook" target="_blank">
-                        <span class="icon-font">
-                            <svg class="icon"><use xlink:href="#icon-facebook"></use></svg>
-                        </span>
-                      </a>
-              
-                      <a href="https://twitter.com/iaMuhammedErdem" class="profile-card-social__item twitter" target="_blank">
-                        <span class="icon-font">
-                            <svg class="icon"><use xlink:href="#icon-twitter"></use></svg>
-                        </span>
-                      </a>
-              
-                      <a href="https://www.instagram.com/iamuhammederdem" class="profile-card-social__item instagram" target="_blank">
-                        <span class="icon-font">
-                            <svg class="icon"><use xlink:href="#icon-instagram"></use></svg>
-                        </span>
-                      </a>
-              
-                      <a href="https://www.behance.net/iaMuhammedErdem" class="profile-card-social__item behance" target="_blank">
-                        <span class="icon-font">
-                            <svg class="icon"><use xlink:href="#icon-behance"></use></svg>
-                        </span>
-                      </a>
-              
-                      <a href="https://github.com/muhammederdem" class="profile-card-social__item github" target="_blank">
-                        <span class="icon-font">
-                            <svg class="icon"><use xlink:href="#icon-github"></use></svg>
-                        </span>
-                      </a>
-              
-                      <a href="https://codepen.io/JavaScriptJunkie" class="profile-card-social__item codepen" target="_blank">
-                        <span class="icon-font">
-                            <svg class="icon"><use xlink:href="#icon-codepen"></use></svg>
-                        </span>
-                      </a>
-              
-                      <a href="http://muhammederdem.com.tr/" class="profile-card-social__item link" target="_blank">
-                        <span class="icon-font">
-                            <svg class="icon"><use xlink:href="#icon-link"></use></svg>
-                        </span>
-                      </a>
               
                     </div>
-              
                     <div class="profile-card-ctr">
-                      <button class="profile-card__button button--blue js-message-btn">Message</button>
-                      <button class="profile-card__button button--orange">Follow</button>
+                      
+               {% if bmi < 20 %}
+               <p>You are underweight</p>
+                    {% elif bmi > 25 %}
+                       <p>You are just the slightly overweight</p>
+   {% else %}
+<p>You are just right</p>
+                       {% endif %}
                     </div>
                   </div>
               
@@ -124,8 +80,8 @@
                 </div>
               
               </div>
-              {% endif %}
-              {% comment %} <svg hidden="hidden">
+              
+              <svg hidden="hidden">
                 <defs>
                   <symbol id="icon-codepen" viewBox="0 0 32 32">
                     <title>codepen</title>
@@ -180,7 +136,19 @@
                     <path d="M29.344 2.656c-1.696-1.728-3.968-2.656-6.4-2.656s-4.672 0.928-6.4 2.656l-5.12 5.12c-3.52 3.52-3.52 9.248 0 12.8 0.352 0.352 0.8 0.544 1.28 0.544s0.928-0.192 1.28-0.544c0.704-0.704 0.704-1.856 0-2.56-2.112-2.112-2.112-5.568 0-7.68l5.12-5.12c2.048-2.048 5.632-2.048 7.68 0 1.024 1.024 1.6 2.4 1.6 3.84s-0.576 2.816-1.6 3.84c-0.704 0.704-0.704 1.856 0 2.56s1.856 0.704 2.56 0c1.696-1.696 2.656-3.968 2.656-6.4s-0.928-4.704-2.656-6.4z"></path>
                   </symbol>
                 </defs>
-              </svg> {% endcomment %}
+              </svg>
+               {% else %}
+               <center>
+               <br>
+               <br>
+                <div class="card" style="padding:10px; margin-top:30%;margin-left:20%;">
+               <h1>Welcome {{user.username}}</h1>
+
+               <p> You need to update your profile, to fully utilize our app.</p>
+               <a href="/profile/edit/" class="btn btn-success">Edit Profile</a>
+               </div>
+               </center>
+                 {% endif %}
 
 </div>
 <style>
@@ -220,9 +188,9 @@ a, a:hover {
   padding: 50px 20px;
   padding-top: 100px;
   display: flex;
-  background-image: linear-gradient(-20deg, #323334   0%, #323334   100%);
+  background-image: linear-gradient(-20deg, #0C0B0B   0%, #0A2D41   100%);
   display: flex;
-  background-image: linear-gradient(-20deg, #323334 0%, #323334 100%);
+  background-image: linear-gradient(-20deg, #0C0B0B 0%, #0A2D41 100%);
 }
 @media screen and (max-width: 768px) {
   .wrapper {
