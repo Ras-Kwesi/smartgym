@@ -1,21 +1,26 @@
 {% extends 'base.html'%}
+{% load bootstrap3 %}
 {% load bootstrap4 %}
 {% block content %}
 {% include 'navbar.html'%}
-<div class="container-fluid">
-        <div class="container" style="height:100% !important;width: 100%;margin-left: 250px;">
+<head>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>  
+</head>
+<div class="container clearfix">
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-4">
                             <div class="people-list" id="people-list">
                                     <div class="search">
                                       <input type="text" placeholder="search" />
-                                      <i class="fa fa-search"></i>
+              
                                     </div>
                                     <ul class="list">
                                             {% for chatroom in chatrooms %}
                                       <li class="clearfix">
                                         <div class="about">
-                                           {{chatroom.id}} <a href="{% url 'chatroom' chatroom.id %}" style="font-size:18px;"><div class="name">{{chatroom.name}}</div></a>
+                                           {{chatroom.id}} <a href="{% url 'chatroom' chatroom.id %}" style="font-size:22px;color: whitesmoke;font-weight: bolder;"><div class="name">{{chatroom.name}}</div></a>
                                           
                                           <div class="status">
                                            <p style="color:whitesmoke;">{{chatroom.topic}}</p>
@@ -33,34 +38,34 @@
                                       <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01_green.jpg" alt="avatar" />
                                       
                                       <div class="chat-about">
-                                      <h6>Started By:<a href="stalk/{{chatroom.admin.id}}" id="start" class="chat-with">{{chatroom.admin.username}}</a></h6>
-                                        <div class="chat-num-messages"><h4><b>{{chatroom.name}}</b></h4></div>
-                                        <h6 id="chatroom_post_header">{{chatroom.topic}}</h6>
+                                      <h6 style="color:black;font-weight: bolder;">Started By :&nbsp;<a href="stalk/{{chatroom.admin.id}}" id="start" class="chat-with">{{chatroom.admin.username}}</a></h6>
+                                        <div class="chat-num-messages"><h4 style="color:black;"><b>{{chatroom.name}}</b></h4></div>
+                                        <h6 id="chatroom_post_header" style="color:black;font-weight: bolder;">{{chatroom.topic}}</h6>
                                         <a href="#post"> <button type="button" class="btn-md btn btn-success" >Add message</button></a>
-
+                                        
                                       </div>
-                                      <i class="fa fa-star"></i>
+                                      <i class="fa fa-star" style="color:#4CAF50 !important;"></i>
                                     </div> <!-- end chat-header -->
                                     
-                                    <div class="chat-history">
+                                    <div class="chat-history" style="font-size: 16px;">
                                           {% for post in chatroom.posts.all %}
                                
                                         <li class="clearfix">
                                           <div class="message-data align-right">
-                                                  <a href="/userprofile/{{post.poster.id.}}"> <span class="message-data-name" >{{post.poster.username}}</span> <i class="fa fa-circle me"></i></a> 
+                                                  <a href="{%url 'profile' user.id %}"> <span class="message-data-name" >{{post.poster.username}}</span> <i class="fa fa-circle me"></i></a> 
                                           </div>
                                           <div class="message other-message float-right">
-                                              <p>{{post.post}}</p>
+                                              <p style="color:whitesmoke;font-weight:bolder;font-size: 19px !important;">{{post.post}}</p>
                                           </div>
                                         </li>
                                         
                                         <li>
                                           <div class="message-data">
-                                              <a href="/userprofile/{{post.poster.id.}}"> <span class="message-data-name" >{{post.poster.username}}</span> <i class="fa fa-circle me"></i></a> 
+                                              <a href="{%url 'profile' user.id %}"> <span class="message-data-name" >{{post.poster.username}}</span> <i class="fa fa-circle me"></i></a> 
                                             <span class="message-data-time">{{post.posted_on}}</span>
                                           </div>
                                           <div class="message my-message">
-                                               <p>{{post.post}}</p>
+                                               <p style="color:whitesmoke;font-weight:bolder;font-size: 19px !important;">{{post.post}}</p>
                                           </div>
                                         </li>
                                     
@@ -83,9 +88,7 @@
                                 </div> <!-- end container -->
                     </div>
                 </div>
-</div>
-
-    
+    </div>
     <script id="message-template" type="text/x-handlebars-template">
       <li class="clearfix">
         <div class="message-data align-right">
@@ -107,214 +110,248 @@
         </div>
       </li>
     </script>
+    <script>
+      $(document).ready(function(){
+  // Add smooth scrolling to all links
+  $("a").on('click', function(event) {
+
+    // Make sure this.hash has a value before overriding default behavior
+    if (this.hash !== "") {
+      // Prevent default anchor click behavior
+      event.preventDefault();
+
+      // Store hash
+      var hash = this.hash;
+
+      // Using jQuery's animate() method to add smooth page scroll
+      // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 800, function(){
+   
+        // Add hash (#) to URL when done scrolling (default click behavior)
+        window.location.hash = hash;
+      });
+    } // End if
+  });
+});
+    </script>
     <style>
-  @import url(https://fonts.googleapis.com/css?family=Lato:400,700);
-*, *:before, *:after {
-  box-sizing: border-box;
-}
+        @import url(https://fonts.googleapis.com/css?family=Lato:400,700);
+    *, *:before, *:after {
+      box-sizing: border-box;
+    }
+    
+    body {
+      width: 100% !important;
+      height: 100% !important;
+      background: rgb(51, 51, 51);
+      font: 14px/20px "Lato", Arial, sans-serif;
+      color: white;
+    }
+    
+    .container {
+      font-weight: bolder;
+      margin: 0 auto;
+      height: 100%;
+      width: 100% !important;
+      border-radius: 5px;
+    }
+    
+    .people-list {
+      width: 260px;
+      margin-left: 150px;
+      float: left;
+    }
+    .people-list .search {
+      padding: 20px;
+    }
+    .people-list input {
+      border-radius: 3px;
+      border: none;
+      padding: 14px;
+      color: white;
+      background: #6A6C75;
+      width: 90%;
+      font-size: 14px;
+    }
+    .people-list .fa-search {
+      position: relative;
+      left: -25px;
+    }
+    .people-list ul {
+      padding: 20px;
+      height: 770px;
+    }
+    .people-list ul li {
+      padding-bottom: 20px;
+    }
+    .people-list img {
+      float: left;
+    }
+    .people-list .about {
+      float: left;
+      margin-top: 8px;
+    }
+    .people-list .about {
+      padding-left: 8px;
+    }
+    .people-list .status {
+      color: #92959E;
+    }
+    
+    .chat {
+      width: 500px;
+      height: 100%;
+      float: left;
+      background: #F2F5F8;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+      color: #434651;
+    }
+    .chat .chat-header {
+      padding: 20px;
+      border-bottom: 2px solid rgb(185, 185, 185);
+    }
+    .chat .chat-header img {
+      float: left;
+    }
+    .chat .chat-header .chat-about {
+      float: left;
+      padding-left: 10px;
+      margin-top: 6px;
+    }
+    .chat .chat-header .chat-with {
+      font-weight: bold;
+      font-size: 16px;
+    }
+    .chat .chat-header .chat-num-messages {
+      color: #92959E;
+    }
+    .chat .chat-header .fa-star {
+      float: right;
+      color: #D8DADF;
+      font-size: 20px;
+      margin-top: 12px;
+    }
+    .chat .chat-history {
+      padding: 30px 30px 20px;
+      border-bottom: 2px solid white;
+      overflow-y: scroll;
+      height: 575px;
+    }
+    .chat .chat-history .message-data {
+      margin-bottom: 15px;
+    }
+    .chat .chat-history .message-data-time {
+      color: #a8aab1;
+      padding-left: 6px;
+    }
+    .chat .chat-history .message {
+      color: white;
+      padding: 18px 20px;
+      line-height: 26px;
+      font-size: 16px;
+      border-radius: 7px;
+      margin-bottom: 30px;
+      width: 90%;
+      position: relative;
+    }
+    .chat .chat-history .message:after {
+      bottom: 100%;
+      left: 7%;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+      border-bottom-color: #86BB71;
+      border-width: 10px;
+      margin-left: -10px;
+    }
+    .chat .chat-history .my-message {
+      background: #86BB71;
+    }
+    .chat .chat-history .other-message {
+      background: #94C2ED;
+    }
+    .chat .chat-history .other-message:after {
+      border-bottom-color: #94C2ED;
+      left: 93%;
+    }
+    .chat .chat-message {
+      padding: 30px;
+    }
+    .chat .chat-message textarea {
+      width: 100%;
+      border: none;
+      padding: 10px 20px;
+      font: 14px/22px "Lato", Arial, sans-serif;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      resize: none;
+    }
+    .chat .chat-message .fa-file-o, .chat .chat-message .fa-file-image-o {
+      font-size: 16px;
+      color: gray;
+      cursor: pointer;
+    }
+    .chat .chat-message button {
+      float: right;
+      color: #94C2ED;
+      font-size: 16px;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      background: #F2F5F8;
+    }
+    .chat .chat-message button:hover {
+      color: #75b1e8;
+    }
+    
+    .online, .offline, .me {
+      margin-right: 3px;
+      font-size: 10px;
+    }
+    
+    .online {
+      color: #86BB71;
+    }
+    
+    .offline {
+      color: #E38968;
+    }
+    
+    .me {
+      color: #86BB71;
 
-body {
-  background: rgb(41, 41, 41);
-  font: 14px/20px "Lato", Arial, sans-serif;
-  color: white;
-}
-
-.container {
-  margin: 0 auto;
-  background: #444753;
-  border-radius: 5px;
-}
-
-.people-list {
-  width: 260px;
-}
-.people-list .search {
-  padding: 20px;
-}
-.people-list input {
-  border-radius: 3px;
-  border: none;
-  padding: 14px;
-  color: white;
-  background: #6A6C75;
-  width: 90%;
-  font-size: 14px;
-}
-.people-list .fa-search {
-  position: relative;
-  left: -25px;
-}
-.people-list ul {
-  padding: 20px;
-  height: 770px;
-}
-.people-list ul li {
-  padding-bottom: 20px;
-}
-.people-list img {
-  float: left;
-}
-.people-list .about {
-  float: left;
-  margin-top: 8px;
-}
-.people-list .about {
-  padding-left: 8px;
-}
-.people-list .status {
-  color: #92959E;
-}
-
-.chat {
-  width: 600px;
-  height: 100% !important;
-  float: left;
-  background: #F2F5F8;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-  color: #434651;
-}
-.chat .chat-header {
-  padding: 20px;
-  border-bottom: 2px solid white;
-}
-.chat .chat-header img {
-  float: left;
-}
-.chat .chat-header .chat-about {
-  float: left;
-  padding-left: 10px;
-  margin-top: 6px;
-}
-.chat .chat-header .chat-with {
-  font-weight: bold;
-  font-size: 16px;
-}
-.chat .chat-header .chat-num-messages {
-  color: #92959E;
-}
-.chat .chat-header .fa-star {
-  float: right;
-  color: #D8DADF;
-  font-size: 20px;
-  margin-top: 12px;
-}
-.chat .chat-history {
-  padding: 30px 30px 20px;
-  border-bottom: 2px solid white;
-  overflow-y: scroll;
-  height: 575px;
-}
-.chat .chat-history .message-data {
-  margin-bottom: 15px;
-}
-.chat .chat-history .message-data-time {
-  color: #a8aab1;
-  padding-left: 6px;
-}
-.chat .chat-history .message {
-  color: white;
-  padding: 18px 20px;
-  line-height: 26px;
-  font-size: 16px;
-  border-radius: 7px;
-  margin-bottom: 30px;
-  width: 90%;
-  position: relative;
-}
-.chat .chat-history .message:after {
-  bottom: 100%;
-  left: 7%;
-  border: solid transparent;
-  content: " ";
-  height: 0;
-  width: 0;
-  position: absolute;
-  pointer-events: none;
-  border-bottom-color: #86BB71;
-  border-width: 10px;
-  margin-left: -10px;
-}
-.chat .chat-history .my-message {
-  background: #86BB71;
-}
-.chat .chat-history .other-message {
-  background: #94C2ED;
-}
-.chat .chat-history .other-message:after {
-  border-bottom-color: #94C2ED;
-  left: 93%;
-}
-.chat .chat-message {
-  padding: 30px;
-}
-.chat .chat-message textarea {
-  width: 100%;
-  border: none;
-  padding: 10px 20px;
-  font: 14px/22px "Lato", Arial, sans-serif;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  resize: none;
-}
-.chat .chat-message .fa-file-o, .chat .chat-message .fa-file-image-o {
-  font-size: 16px;
-  color: gray;
-  cursor: pointer;
-}
-.chat .chat-message button {
-  float: right;
-  color: #94C2ED;
-  font-size: 16px;
-  text-transform: uppercase;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
-  background: #F2F5F8;
-}
-.chat .chat-message button:hover {
-  color: #75b1e8;
-}
-
-.online, .offline, .me {
-  margin-right: 3px;
-  font-size: 10px;
-}
-
-.online {
-  color: #86BB71;
-}
-
-.offline {
-  color: #E38968;
-}
-
-.me {
-  color: #94C2ED;
-}
-
-.align-left {
-  text-align: left;
-}
-
-.align-right {
-  text-align: right;
-}
-
-.float-right {
-  float: right;
-}
-
-.clearfix:after {
-  visibility: hidden;
-  display: block;
-  font-size: 0;
-  content: " ";
-  clear: both;
-  height: 0;
-}
-
- 
+    }
+    
+    .align-left {
+      text-align: left;
+    }
+    
+    .align-right {
+      text-align: right;
+    }
+    
+    .float-right {
+      float: right;
+    }
+    
+    .clearfix:after {
+      visibility: hidden;
+      display: block;
+      font-size: 0;
+      content: " ";
+      clear: both;
+      height: 0;
+    }
+    label{
+      display: none;  
+    }
     </style>
     {% block scripts %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

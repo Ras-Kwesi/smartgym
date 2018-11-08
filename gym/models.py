@@ -157,9 +157,7 @@ class Gym(models.Model):
     posted_on = models.DateTimeField(auto_now_add=True)
     description = models.TextField(blank=True,null=True)
     image = models.ImageField(upload_to='images/')
-    geom = models.PointField(srid=4326)
     working_hours = models.TextField()
-    objects = geomodels.GeoManager()
     manager = models.ForeignKey(User)
 
 
