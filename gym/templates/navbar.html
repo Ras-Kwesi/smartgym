@@ -4,14 +4,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>  
 <div class="sidebar">
     <a class="nav-link" style="font-weight: bolder;font-size: 20px;" href="/">Smart Gym</a>
-    <a class="active" href="/">Home</a>
+    <a class="active" href="{% url 'landing' user.id %}">Home</a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/accounts/password/change">Change Password</a>
           <a class="dropdown-item" href="/logout/">Logout</a>
         </div>
-    <a href="{% url 'gym_trainers' %}">Trainers</a>
-    <a href="{% url 'add_trainer' %}">Add Trainer</a>
-    <a href="{% url 'profile' user.id%}">Profile</a>
+    <a href="{% url 'viewgyms' %}">Join Gym</a>
+    <a href="" class="collection-item">Trainers<span class="new badge">10</span></a>
+    <a href="">Clients</a>
     <a href="{% url 'newchatroom' %}">New Chatroom</a>
     <a href="{% url 'chatrooms' %}">Chatrooms</a>
     <a href=""><b>Events</b></a>

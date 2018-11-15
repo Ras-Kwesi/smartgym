@@ -34,14 +34,15 @@ class Gymnast(models.Model):
         ('Getting bigger', 'Getting bigger'),
         ('Maintain fitness', 'Maintain fitness'),
     )
-    weight = models.CharField(max_length=10)
-    height = models.CharField(max_length=10)
+    weight = models.IntegerField(null=True)
+    height = models.IntegerField(null=True)
     goal = models.CharField(max_length=30, choices=goals)
     contact = models.CharField(max_length=30, blank=True)
     bio = models.TextField(max_length=50)
     chatroom = models.ManyToManyField('Chatroom', blank=True)
     gym = models.ForeignKey('Gym', null=True, blank=True)
     profile_pic = models.ImageField(upload_to='images/', blank=True)
+    bmi = models.IntegerField(null=True, blank=True)
 
 
     @receiver(post_save, sender=User)
@@ -166,7 +167,9 @@ class Gym(models.Model):
     posted_on = models.DateTimeField(auto_now_add=True)
     description = models.TextField(blank=True,null=True)
     image = models.ImageField(upload_to='images/')
+    geom = models.PointField(srid=4326)
     working_hours = models.TextField()
+    objects = geomodels.GeoManager()
     manager = models.ForeignKey(User)
 
 

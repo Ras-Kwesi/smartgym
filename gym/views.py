@@ -16,6 +16,7 @@ from django.contrib import messages
 from django.conf import settings
 import requests
 from .decorators import check_recaptcha
+# import numpy as np
 # from .decorators import check_recaptcha
 
 
@@ -73,8 +74,9 @@ def chatrooms(request):
     """
     Enables a user to join a chatroom
     """
-    if Join.objects.filter(user_id = request.user).exists():
-        chatroom = Chatroom.objects.get(pk = request.user.join.chatroom_id)
+    if JoinChat.objects.filter(user_id = request.user).exists():
+        chatroom = Chatroom.objects.get(pk = request.user.joinchat.chatroom_id)
+        form = ChatPostForm()
         return render(request,'chatroom/chatroom.html', locals())
 
     else:
@@ -154,7 +156,7 @@ def joinchat(request, id):
 #     return render(request, 'registration/trainer/login.html')
 
 
-def signup(request):
+def signup(request, user_id):
 
     if request.method == 'POST':
         form = SignupForm(request.POST)
@@ -179,7 +181,7 @@ def signup(request):
             else:
                 messages.error(request, 'Invalid reCAPTCHA. Please try again.')
 
-            return redirect('landing')
+            return redirect('landing', user_id=user_id)
     else:
         form = SignupForm()
 
@@ -232,18 +234,18 @@ def trainer_signup(request):
 
 
 @login_required(login_url='/accounts/login/')
-def index(request):
+def index(request, user_id):
     """
     Renders the index page
     """
     if request.user.user_type == 1:
-        if Join.objects.filter(user_id = request.user).exists():
-            gym = Gym.objects.get(pk = request.user.join.gym_id)
-            return render(request, 'gymnast/home.html', locals())
+        profiles = Gymnast.objects.get(user_id=user_id)
+        users = User.objects.get(id=user_id)
+        bmi = round((profiles.weight/(profiles.height/100)**2),2)
+        # print(bmi)
+        # # print(x)
 
-        else:
-            gyms = Gym.objects.all()
-            return render(request, 'gymnast/index.html', locals())
+        return render(request, 'gymnast/index.html', locals())
 
     elif request.user.user_type == 2:
         return render(request, 'trainer/home.html')
@@ -259,10 +261,13 @@ def join(request , gymid):
     this_gym = Gym.objects.get(pk = gymid)
     if Join.objects.filter(user = request.user).exists():
         Join.objects.filter(user_id = request.user).update(gym_id = this_gym.id)
+        gyms = Gym.objects.get(pk = gymid)
+        return render(request, 'gymnast/home.html', locals())
+
     else:
         Join(user=request.user, gym_id = this_gym.id).save()
     messages.success(request, 'Success! You have succesfully joined this Neighbourhood ')
-    return redirect('landing')
+    return redirect('')
 
 @login_required(login_url='/accounts/login/')
 def myprofile(request, user_id):
@@ -276,7 +281,7 @@ def myprofile(request, user_id):
 
 
 @login_required(login_url='/accounts/login/')
-def edit_profile(request):
+def edit_profile(request, user_id):
     """
     Function that enables one to edit their profile information
     """
@@ -287,9 +292,14 @@ def edit_profile(request):
         if form.is_valid():
             profile = form.save(commit=False)
             profile.user = current_user
+            # w = form.weight
+            # h = form.height
+            # print(w)
+            # print(h)
             profile.save()
-        return redirect('landing')
+        return redirect('landing', user_id=user_id)
     else:
+       
         form = ProfileForm(instance = profile)
     return render(request, 'edit-profile.html', {"form": form,})
 
@@ -316,7 +326,7 @@ def exitgym(request, id):
     Allows users to exit gyms
     """
     Join.objects.get(user_id = request.user).delete()
-    return redirect('landing')
+    return redirect('viewgyms')
 
 
 @login_required(login_url='/accounts/login/')
@@ -334,28 +344,23 @@ def profile(request):
     # print(friends)
     return render(request, 'profile.html', {'profile': current_user,'posts':posts,'chatrooms':chatrooms})
 
+@login_required(login_url='/accounts/login/')
+def view_gyms(request):
+    """
+    Renders the  page
+    """
+    gyms = Gym.objects.all()
+    return render(request, 'gymnast/gyms.html', locals())
+    
+
 
 @login_required(login_url='/accounts/login/')
-def add_trainer(request):
+def my_gyms(request):
     """
-    Enables a trainer to be added
+    Renders the  page
     """
-    if request.method == 'POST':
-        form =  AddTrainerForm(request.POST,request.FILES)
-        if form.is_valid():
-            trainer = form.save(commit = False)
-            trainer.manager = request.user
-            trainer.save()
-            return redirect('landing')
-    else:
-        form =  AddTrainerForm()
-        return render(request, 'forms/add_trainer.html', {"form":form})
-
-
-def trainers(request):
-    trainers = Trainer.objects.all()
-    return render(request,'trainers.html',locals())
-
+    gym = Gym.objects.get(pk = request.user.join.gym_id)
+    return render(request, 'gymnast/gyms.html', locals())
 
 
 

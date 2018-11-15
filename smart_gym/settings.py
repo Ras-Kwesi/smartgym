@@ -5,17 +5,30 @@ from decouple import config,Csv
 
 
 MODE=config("MODE", default="dev")
-SECRET_KEY = 'jhhiu279ydh91'
-DEBUG = True
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = config('DEBUG', default=False, cast=bool)
 # development
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'smartgym',
-        'USER': 'gift',
-    'PASSWORD':'gL0711',
-    }
-}
+if config('MODE')=="dev":
+   DATABASES = {
+       'default': {
+           'ENGINE': 'django.contrib.gis.db.backends.postgis',
+           'NAME': config('DB_NAME'),
+           'USER': config('DB_USER'),
+           'PASSWORD': config('DB_PASSWORD'),
+        #    'HOST': config('DB_HOST'),
+        #    'PORT': '',
+       }    
+   }
+# production
+else:
+   DATABASES = {
+       'default': dj_database_url.config(
+           default=config('DATABASE_URL')
+       )
+   }
+
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
 ALLOWED_HOSTS = ['*']
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Application definition
@@ -40,12 +53,22 @@ INSTALLED_APPS = [
      "geoposition",
      'django_google_maps',
      'easy_maps',
-       'djgeojson',
+    'djgeojson',
     'leaflet',
     'django.contrib.gis',
   
 
 ]
+
+LEAFLET_CONFIG = {
+    'SPATIAL_EXTENT': (5.0, 44.0, 7.5, 46),
+    'DEFAULT_CENTER': (6.0, 45.0),
+    'DEFAULT_ZOOM': 16,
+    'MIN_ZOOM': 3,
+    'MAX_ZOOM': 18,
+}
+
+
 GEOPOSITION_GOOGLE_MAPS_API_KEY = 'AIzaSyBrdUUuAf6IUCu5TojkPfccO_RNhxCwy8I'
 EASY_MAPS_GOOGLE_MAPS_API_KEY = 'AIzaSyBrdUUuAf6IUCu5TojkPfccO_RNhxCwy8I'
 EASY_MAPS_CENTER = (-41.3, 32)
